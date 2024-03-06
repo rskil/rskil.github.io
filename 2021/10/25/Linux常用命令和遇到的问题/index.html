@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Linux常用命令 
+      
+      
+      |
+    
+     rskil_blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">rskil</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Linux常用命令</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2021-10-25 15:17:11
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Linux/" title="Linux">
+                    #Linux
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>[TOC]</p>
+<hr>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h5 id="dhclient-自动获取ip"><a href="#dhclient-自动获取ip" class="headerlink" title="dhclient 自动获取ip"></a>dhclient 自动获取ip</h5><h5 id="history-查看执行过的命令-c-用来清除命名记录"><a href="#history-查看执行过的命令-c-用来清除命名记录" class="headerlink" title="history 查看执行过的命令  -c 用来清除命名记录"></a>history 查看执行过的命令  -c 用来清除命名记录</h5><h5 id="mkdir创建文件夹"><a href="#mkdir创建文件夹" class="headerlink" title="mkdir创建文件夹"></a>mkdir创建文件夹</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p a-&#123;1,2,3&#125; ---&gt; a-1 a-2 a-3</span><br><span class="line">mkdir -p a/&#123;1,2,3&#125; ---&gt; a --&gt; 1 2 3</span><br></pre></td></tr></table></figure>
+
+<h5 id="yum命令"><a href="#yum命令" class="headerlink" title="yum命令"></a>yum命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum makecache 		   # 将服务器上的包缓存到本地</span><br><span class="line">yum list pam* 		   # 列出以pam开头的软件</span><br><span class="line">yum update	 		   # 更新所有软件</span><br><span class="line">yum upda package_name  # 仅更新指定的package</span><br><span class="line">yum remove 			   # 软件名	卸载软件</span><br><span class="line">yum search 软件名 		 # 查询软件包</span><br><span class="line">yum install 软件包名    # 安装软件</span><br><span class="line">yum info 软件包名		# 查询软件包信息,没安装的话查不到东西</span><br><span class="line">yum list    		   # 查询安装的rpm包</span><br><span class="line">yum clean all		   # 清空缓存</span><br><span class="line">yum makecache          # 获取仓库缓存</span><br></pre></td></tr></table></figure>
+
+
+
+<p>rpm</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -q name   # 查询name有没有安装</span><br><span class="line">rpm -qi name  # 查看name详情</span><br><span class="line">rpm -ql name  # 查询软件包在系统里安装的所有文件</span><br><span class="line">rpm -e name --nodeps  # --nodeps 强制卸载</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="touch创建文件"><a href="#touch创建文件" class="headerlink" title="touch创建文件"></a>touch创建文件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch filename	创建了filename文件</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="cat-tac-more-查看文件内容"><a href="#cat-tac-more-查看文件内容" class="headerlink" title="cat  tac  more  查看文件内容"></a>cat  tac  more  查看文件内容</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tail -3 		# 文件后三行</span><br><span class="line">tail -F 文件名   # 监控文件变化</span><br><span class="line">head -3文件名 	  # 查看前三行</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="find-查找命令"><a href="#find-查找命令" class="headerlink" title="find 查找命令"></a>find 查找命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name wenjainming  # 快速查找文件位置</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="软连接-类似于Windows系统中的快捷方式"><a href="#软连接-类似于Windows系统中的快捷方式" class="headerlink" title="软连接 - 类似于Windows系统中的快捷方式"></a>软连接 - 类似于Windows系统中的快捷方式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln  -s  [源文件或目录]  [目标文件或目录]    # 格式</span><br><span class="line">ln –s  ./a/test  ./b/hello				# 示例</span><br></pre></td></tr></table></figure>
+
+<p>它的作用是将当前路径下的a文件夹中的test文件，在当前路径的b文件夹中建立软连接，并且用一个新的名字为hello。<strong>路径尽量写绝对路径</strong> </p>
+<h5 id="netstat查看当前网络状态"><a href="#netstat查看当前网络状态" class="headerlink" title="netstat查看当前网络状态"></a>netstat查看当前网络状态</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp # 查看端口情况</span><br><span class="line">netstat -r   # 查看核心路由表 等同于route命令</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="ping命令"><a href="#ping命令" class="headerlink" title="ping命令"></a>ping命令</h5><p>测试本机与目标ip地址是否能连通</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 192.168.168.168</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="telnet命令"><a href="#telnet命令" class="headerlink" title="telnet命令"></a>telnet命令</h5><p>查看本机与目标ip的指定端口是否能连通</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install telnet -y 安装</span><br><span class="line">talent ip地址 端口</span><br><span class="line">talent 192.168.168.168 22</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="top-x2F-htop-状态监控"><a href="#top-x2F-htop-状态监控" class="headerlink" title="top &#x2F; htop 状态监控"></a>top &#x2F; htop 状态监控</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install htop    # htop安装</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Speedtest测速-命令行"><a href="#Speedtest测速-命令行" class="headerlink" title="Speedtest测速 - 命令行"></a>Speedtest测速 - 命令行</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://install.speedtest.net/app/cli/install.rpm.sh | bash</span><br><span class="line">yum install -y speedtest   # 安装speedtest</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="网卡配置文件-x2F-etc-x2F-sysconfig-x2F-network-scripts"><a href="#网卡配置文件-x2F-etc-x2F-sysconfig-x2F-network-scripts" class="headerlink" title="网卡配置文件 &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts"></a>网卡配置文件 &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">[root@localhost]# </span><span class="language-bash"><span class="built_in">cat</span> /etc/sysconfig/network-scripts/ifcfg-ens33</span> </span><br><span class="line">TYPE=Ethernet	#网络类型</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=none #IP获取方式，有dhcp自动获取和静态IP（none/static）</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=451ec269-434b-4527-84a5-9306612f39aa</span><br><span class="line">DEVICE=ens33 # 驱动名称</span><br><span class="line">ONBOOT=yes   # yes为开机启动</span><br><span class="line"></span><br><span class="line">IPADDR=192.168.16.112  # 设置静态IP地址</span><br><span class="line">NETMASK=255.255.255.0  # 子网掩码</span><br><span class="line">GATEWAY=192.168.16.1   # 网关</span><br><span class="line">DNS1=180.76.76.76	   # DNS地址可以有多个单名称不能相同</span><br><span class="line">DNS2=114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启网络服务 systemctl restart network</p>
+</blockquote>
+<h5 id="dd命令-文件夹下面所有文件拷贝成一个镜像文件"><a href="#dd命令-文件夹下面所有文件拷贝成一个镜像文件" class="headerlink" title="dd命令 文件夹下面所有文件拷贝成一个镜像文件"></a><a target="_blank" rel="noopener" href="https://www.linuxcool.com/dd">dd命令</a> 文件夹下面所有文件拷贝成一个镜像文件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd if=/路径 of=/路径/文件名  </span><br><span class="line">dd if=/dev/sr0 of=/root/centos7.ios</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="systemctl命令-–-管理系统服务"><a href="#systemctl命令-–-管理系统服务" class="headerlink" title="systemctl命令 – 管理系统服务"></a><a target="_blank" rel="noopener" href="https://www.linuxcool.com/systemctl">systemctl命令 – 管理系统服务</a></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd.service	#启用httpd服务</span><br><span class="line">systemctl stop httpd.service	#停止httpd服务</span><br><span class="line">systemctl restart httpd.service	#重启httpd服务</span><br><span class="line">systemctl status httpd.service	#查看httpd服务状态</span><br><span class="line">systemctl enable httpd.service	#设置httpd服务开机自启</span><br><span class="line">systemctl disaable httpd.service			#设置httpd开机不自启</span><br><span class="line">systemctl list-units --type=httpd.service	#列举所有已启动的服务(unit单元)</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="防火墙相关命令"><a href="#防火墙相关命令" class="headerlink" title="防火墙相关命令"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27870421/article/details/93165382?ops_request_misc=&request_id=&biz_id=102&utm_term=fire%E5%91%BD%E4%BB%A4&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-3-93165382.first_rank_v2_pc_rank_v29&spm=1018.2226.3001.4187">防火墙相关命令</a></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld		#启动防火墙</span><br><span class="line">systemctl stop firewalld		#关闭防火墙</span><br><span class="line">systemctl disable firewalld		#禁用防火墙</span><br><span class="line">systemctl enable firewalld		#开机自启防护墙</span><br><span class="line">systemctl status firewalld == firewall-cmd --state  #查看防火墙运行状态</span><br><span class="line"></span><br><span class="line">firewall-cmd --add-port=443/tcp	#打开443端口</span><br><span class="line">firewall-cmd --permanent --add-port=443/tcp #永久打开443端口</span><br><span class="line">firewall-cmd --list-all #查看防火墙，已开放的端口</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="主机间的相互免秘钥"><a href="#主机间的相互免秘钥" class="headerlink" title="主机间的相互免秘钥"></a>主机间的相互免秘钥</h5><p>生成公钥和私钥 发送给目标主机 即可实现 私钥公钥是唯一的每次生成都会不一致</p>
+<h6 id="生成秘钥"><a href="#生成秘钥" class="headerlink" title="生成秘钥"></a>生成秘钥</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -P &#x27;&#x27; -f ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<h6 id="发送秘钥"><a href="#发送秘钥" class="headerlink" title="发送秘钥"></a>发送秘钥</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@目标主机地址</span><br></pre></td></tr></table></figure>
+
+<h6 id="主机名与host校验"><a href="#主机名与host校验" class="headerlink" title="主机名与host校验"></a>主机名与host校验</h6><p>修改本机文件ssh_config 最后两行添加下列信息 就可以关闭ssh登录时得输入yes确认</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/ssh_config</span><br><span class="line"></span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line">UserKnownHostsFile /dev/null</span><br></pre></td></tr></table></figure>
+
+<h6 id="远程登录过后再次登录同一ip地址但是密钥不同的机器"><a href="#远程登录过后再次登录同一ip地址但是密钥不同的机器" class="headerlink" title="远程登录过后再次登录同一ip地址但是密钥不同的机器"></a>远程登录过后再次登录同一ip地址但是密钥不同的机器</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R 服务器IP    # 清空已保存的密钥</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="服务器时间同步"><a href="#服务器时间同步" class="headerlink" title="服务器时间同步"></a>服务器时间同步</h5><p>date 显示时间</p>
+<p>安装ntpdate</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install ntp -y</span><br><span class="line">ntpdate cn.ntp.org.cn 同步网站\主机ip时间</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="SELinux"><a href="#SELinux" class="headerlink" title="SELinux"></a>SELinux</h5><p>配置文件位置	vim &#x2F;etc&#x2F;sysonfig&#x2F;selinux</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sestatus # 查看当前的SElinux状态</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Windows和linux的文件传输方式"><a href="#Windows和linux的文件传输方式" class="headerlink" title="Windows和linux的文件传输方式"></a>Windows和linux的文件传输方式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install lrzsz -y  安装lrzsz</span><br><span class="line"></span><br><span class="line">rz 将文件从Windows上传到linux</span><br><span class="line">sz fliename 将文件从linux上传到Windows</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="linux和linux内文件传输"><a href="#linux和linux内文件传输" class="headerlink" title="linux和linux内文件传输"></a>linux和linux内文件传输</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">传文件</span><br><span class="line">scp root@主机ip :文件路径 /拷贝到的路径</span><br><span class="line">scp root@192.168.168.168:/root/baidu.txt /root</span><br><span class="line"></span><br><span class="line">传文件夹</span><br><span class="line">scp -r root@主机ip :文件夹路径 /拷贝到的路径</span><br><span class="line">scp -r root@192.168.168.168:/root/baidu /root</span><br><span class="line"></span><br><span class="line">rsync 也可以用来传输</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="分区信息查询"><a href="#分区信息查询" class="headerlink" title="分区信息查询"></a>分区信息查询</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df -h	所有分区信息显示 按M显示 1M=1000kb</span><br><span class="line">df -h --max-depth=1 /etc 指定文件目录大小</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="文件压缩与解压"><a href="#文件压缩与解压" class="headerlink" title="文件压缩与解压"></a>文件压缩与解压</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar文件</span><br><span class="line"> 压缩 tar -zxvf 压缩包name 源文件路径 x(解压)v(过程)f(文件)c(压缩)</span><br><span class="line"> 解压 tar -zcf (压缩后的名字.tar.gz) 源文件路径</span><br><span class="line"> </span><br><span class="line">zip文件 yum install zip unzip -y</span><br><span class="line"> 压缩 zip -r 压缩文件名 源文件路径</span><br><span class="line"> 解压 unzip 压缩文件</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="vi-编辑器"><a href="#vi-编辑器" class="headerlink" title="vi 编辑器"></a>vi 编辑器</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">vi +8 ifcfg-ens33 定位到文件内第八行</span><br><span class="line">vi +  ifcfg-ens33 定位到文件内最后一行</span><br><span class="line"></span><br><span class="line">编辑模式下</span><br><span class="line">dd 删掉一行</span><br><span class="line">p  复制一行</span><br><span class="line">gg 跳转到首行 15gg跳转到第15行</span><br><span class="line">dd 删除当前位置的一行 </span><br><span class="line">3dd 从当前位置向下删除三行</span><br><span class="line">w 一个单词一个单词的跳转</span><br><span class="line">dw 从当前位置向后删除一个单词</span><br><span class="line">3dw 从当前位置向后删除三个单词</span><br><span class="line">yy  从当前位置向下复制一行 按p进行粘贴</span><br><span class="line">3yy 从当前位置向下复制三行 按p进行粘贴</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输入模式</span><br><span class="line">I 当前行首    i 当前位置  </span><br><span class="line">A 跳转到行尾  a 跳转到当前字符后一个字符处  </span><br><span class="line">O 上添加一行  o 下添加一行 </span><br><span class="line"></span><br><span class="line">末行模式</span><br><span class="line">set nu 	 显示行号</span><br><span class="line">set nonu 取消显示行号</span><br><span class="line">:w  保存一次</span><br><span class="line">:wq 保存退出</span><br><span class="line">:q! 强制不保存退出</span><br><span class="line">:/a 查找a</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h5><h6 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名 会在 /home下创建同名目录和组</span><br></pre></td></tr></table></figure>
+
+<h6 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 用户名 按着提示重新设置密码</span><br></pre></td></tr></table></figure>
+
+<h6 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">userdel -r 用户名  级联删除/home下的目录和组</span><br><span class="line"></span><br><span class="line">userdel: user rskill is currently used by process 98238</span><br><span class="line">删除用户时报错可以进程正在使用是因为切换用户的时候未完全退出 使用exit退出即可在root用户下删除其他用户</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改用户名"><a href="#修改用户名" class="headerlink" title="修改用户名"></a>修改用户名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -l </span><br></pre></td></tr></table></figure>
+
+<h6 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root 切换到root 高级切换低级无需密码，低级切换高级相反</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h5><h6 id="创建组"><a href="#创建组" class="headerlink" title="创建组"></a>创建组</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd rskill		 # 创建rskill组</span><br></pre></td></tr></table></figure>
+
+<h6 id="删除组"><a href="#删除组" class="headerlink" title="删除组"></a>删除组</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel rskill		 # 删除rskill组</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改组名"><a href="#修改组名" class="headerlink" title="修改组名"></a>修改组名</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod -n 新组名 旧组名 </span><br></pre></td></tr></table></figure>
+
+<h6 id="查看用户对应的组"><a href="#查看用户对应的组" class="headerlink" title="查看用户对应的组"></a>查看用户对应的组</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groups 				 # 不带用户名参数就是查看当前用户的组</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改用户的组"><a href="#修改用户的组" class="headerlink" title="修改用户的组"></a>修改用户的组</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usermod -g 用户名 组名 g--&gt;主组</span><br><span class="line">usermod -G 用户名 组名 G--&gt;附属组</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h5><table>
+<thead>
+<tr>
+<th align="center">权限项</th>
+<th>写</th>
+<th>读</th>
+<th>执行</th>
+<th>读</th>
+<th>写</th>
+<th>执行</th>
+<th>读</th>
+<th>写</th>
+<th>执行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">字符表示</td>
+<td>w</td>
+<td>r</td>
+<td>x</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+</tr>
+<tr>
+<td align="center">数字表示</td>
+<td>2</td>
+<td>4</td>
+<td>1</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">drwxrwxrwx </span><br><span class="line">第一个rwx 是文件所有者的权限</span><br><span class="line">第二个rwx 是文件所属组用户的权限</span><br><span class="line">第三个rwx 是其他用户的权限</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="管道和重定向"><a href="#管道和重定向" class="headerlink" title="管道和重定向"></a>管道和重定向</h5><p>管道 |</p>
+<p>作用: 把前面命令执行后的结果传递到‘’|‘’后面的命令</p>
+<h5 id="重定向-‘’-gt-’’-’’-gt-gt-’’"><a href="#重定向-‘’-gt-’’-’’-gt-gt-’’" class="headerlink" title="重定向  ‘’&gt;’’ ,’’&gt;&gt;’’"></a>重定向  ‘’&gt;’’ ,’’&gt;&gt;’’</h5><p>作用: 改变数据输出的位置 有方式1 和方式2 两种 1是标准信息输出，2是错误信息输出</p>
+<p>下方‘&gt;’替换成‘&gt;&gt;’即为追加到文件内，‘&gt;’为替换文件内的所有内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll / 1&gt; file.txt  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll / &gt; file.txt   #这里的方式1 &#x27;1&#x27;可以省略 标准输出</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /aaaaa 2&gt;file.txt #没有aaaaa的话会报错 方式二的话是吧错误信息输入到file.txt内</span><br></pre></td></tr></table></figure>
+
+<h6 id="组合使用"><a href="#组合使用" class="headerlink" title="组合使用"></a>组合使用</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /aaa &gt; file.txt 2&gt;&amp;1    # 不管打印输出信息对错都往file.txt 放</span><br></pre></td></tr></table></figure>
+
+<h6 id="数据黑洞：处理掉无关紧要的终端打印输出信息"><a href="#数据黑洞：处理掉无关紧要的终端打印输出信息" class="headerlink" title="数据黑洞：处理掉无关紧要的终端打印输出信息"></a>数据黑洞：处理掉无关紧要的终端打印输出信息</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">查看aaa信息放到/dev/null内 因为/dev/null没有这个文件,所以放进去的都等于消失掉了</span><br><span class="line"></span><br><span class="line">ls /aaa &gt; /dev/null 2&gt;&amp;1  </span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><p>ps -ef</p>
+<p>ps -aux 可以看CPU，内存使用率</p>
+<h6 id="杀死进程"><a href="#杀死进程" class="headerlink" title="杀死进程"></a>杀死进程</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 </span><br></pre></td></tr></table></figure>
+
+<h6 id="后台进程"><a href="#后台进程" class="headerlink" title="后台进程"></a>后台进程</h6><p>​	在命令后加 ’&amp;‘ 符号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baiud.com &gt;&gt; baidu.txt &amp;</span><br></pre></td></tr></table></figure>
+
+<h6 id="jobs-l"><a href="#jobs-l" class="headerlink" title="jobs -l"></a>jobs -l</h6><p>​	查看当前的后台进程，但只能查出当前窗口内的进程</p>
+<h6 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h6><p>​	可以防止后台进程被挂起</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nohup ping www.baidu.com &gt;&gt; baidu.txt 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">2&gt;</span><span class="language-bash">&amp;1 是因为可能会有错误信息输出</span></span><br><span class="line">&amp;  后台进程</span><br></pre></td></tr></table></figure>
+
+<h6 id="杀掉进程"><a href="#杀掉进程" class="headerlink" title="杀掉进程"></a>杀掉进程</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kill -9 89501                       Running正在运行   killed 被杀掉的</span><br><span class="line"></span><br><span class="line">[root@master ~]# jobs -l</span><br><span class="line">[1]+ 98501 Running     ping www.baidu.com &gt;&gt; baidu.txt &amp;</span><br><span class="line">[root@master ~]# kill -9 98501</span><br><span class="line">[root@master ~]# jobs -l</span><br><span class="line">[1]+ 98501 Killed      ping www.baidu.com &gt;&gt; baidu.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h5><p>系统环境变量 —&gt; &#x2F;etc&#x2F;profile</p>
+<p>用户环境变量—-&gt; .bash_profile</p>
+<h6 id="修改配置文件后重新加载"><a href="#修改配置文件后重新加载" class="headerlink" title="修改配置文件后重新加载"></a>修改配置文件后重新加载</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h4><h5 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l </span><br></pre></td></tr></table></figure>
+
+<p>再次插入磁盘或U盘能看到变化</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb4 /xxxx		# 正常挂载上去</span><br></pre></td></tr></table></figure>
+
+<p>挂载文件为ntfs的U盘<code>mount /dev/sdb1 /mnt</code> 此时报错（系统默认不支持该格式）mount: unknown filesystem type ‘ntfs’</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc yum install ntfs-3g-devel.x86_64  # 安装依赖</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /mnt   # 再次进行挂载</span><br></pre></td></tr></table></figure>
+
+<h5 id="取消挂载"><a href="#取消挂载" class="headerlink" title="取消挂载"></a>取消挂载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /dev/sdb1</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="挂载exFAT格式"><a href="#挂载exFAT格式" class="headerlink" title="挂载exFAT格式"></a>挂载exFAT格式</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount: unknown filesystem type ‘exfat 问题解决</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install -y http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm</span><br><span class="line"></span><br><span class="line">yum install -y exfat-utils fuse-exfat</span><br><span class="line">mount -t exfat /dev/sdbxxxxx /xxxxx</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="磁盘相关命令"><a href="#磁盘相关命令" class="headerlink" title="磁盘相关命令"></a>磁盘相关命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br><span class="line">fdisk -l</span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/fstab </span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="自动执行-crontab-x2F-cron"><a href="#自动执行-crontab-x2F-cron" class="headerlink" title="自动执行 crontab &#x2F; cron"></a>自动执行 crontab &#x2F; cron</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">crontab crontab 	# 创建定时任务</span><br><span class="line">crontab -l  		# 查看是否有定时任务</span><br><span class="line">crontab -e 			# 编辑（添加）定时任务</span><br><span class="line">crontab -r 			# 删除定时任务</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.linuxprobe.com/linux-timed-task.html">Linux定时任务</a></li>
+</ul>
+<h5 id="时间-x2F-时区"><a href="#时间-x2F-时区" class="headerlink" title="时间&#x2F;时区"></a>时间&#x2F;时区</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在centos7中设置时区的命令可以通过 timedatectl 命令来实现</span><br><span class="line">[root@linux-node ~]# timedatectl set-timezone Asia/Shanghai</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="网卡重启失败"><a href="#网卡重启失败" class="headerlink" title="网卡重启失败"></a>网卡重启失败</h5><p>遇到的情况 装了个宝塔面板 强制关机 <code>改了运存</code> 再开机网卡就掉了。重启不了。</p>
+<p>解决方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop NetworkManager &amp;&amp; service network restart</span><br></pre></td></tr></table></figure>
+
+<p>主要原因：<strong>network与NetworkManager冲突导致</strong> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 临时禁用</span><br><span class="line">/etc/init.d/NetworkManager stop    (centos6)</span><br><span class="line">service NetworkManager stop        (centos6)</span><br><span class="line">systemctl stop NetworkManager      (centos7)</span><br><span class="line"></span><br><span class="line">永久</span><br><span class="line">chkconfig NetworkManager off       (centos6)</span><br><span class="line">systemctl disable NetworkManager   (centos7)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 重启网卡</span><br><span class="line">service network restart（以centos 7为例）</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="screen-命令"><a href="#screen-命令" class="headerlink" title="screen 命令"></a>screen 命令</h5><p>​		<strong>screen 是一个非常有用的<a target="_blank" rel="noopener" href="https://www.linuxcool.com/">命令</a>，提供从单个 SSH 会话中使用多个 <a target="_blank" rel="noopener" href="https://www.linuxcool.com/">shell</a> 窗口（会话）的能力。当会话被分离或网络中断时，screen 会话中启动的进程仍将运行，你可以随时重新连接到 screen 会话</strong> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">screen -S name  # 这里的name可以随意 会新建一个窗口可以在里面执行命令要从当前的 screen 会话中分离，你可以按下Ctrl-A 和 d。所有的 screen 会话仍将是活跃的，你之后可以随时重新连接。</span><br><span class="line">screen -ls  # 查看所有会话</span><br><span class="line">screen -r   # 用于重新连接</span><br><span class="line">screen -r 7934 # 这里的数字是ls查出来的 .name前面的数字</span><br><span class="line">screen -r -S name # 也可以直接使用name进入会话</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">终止会话方法： 可以在会话内按下 Ctrl+c ，或者在命令行中使用 <span class="built_in">exit</span> 命令。(根据实际情况来，会话内运行的程序完全停止了的话，会话退出后将被终止)</span></span><br><span class="line">screen -X -S xxxx quit # xxxx为会话前面的数字编号(进程号)</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="wget命令"><a href="#wget命令" class="headerlink" title="wget命令"></a>wget命令</h5><p>​	在下载文件的时候直接关闭远程登录窗口的话它任务还是一直在运行着的，并在当前目录下生成一个wget-log文件</p>
+<p>​	如果想查看下载进度的话可以对wget-log文件进行实时读取</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -F wget-log</span><br></pre></td></tr></table></figure>
+
+<p>​	关于怎么停止 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="运行程序和脚本的时候按下-ctrl-c-和-ctrl-z-区别"><a href="#运行程序和脚本的时候按下-ctrl-c-和-ctrl-z-区别" class="headerlink" title="运行程序和脚本的时候按下  ctrl + c 和 ctrl + z  区别"></a>运行程序和脚本的时候按下  <code>ctrl + c</code> 和 <code>ctrl + z</code>  区别</h5><p>​	<code>ctrl+c</code> 是终止命令的执行，而<code>ctrl+z</code>是把命令放到后台执行，使用 <code>fg</code> 可以把后台执行的程序调到前台来，也就是说 <code>ctrl+z</code>并没有终结命令</p>
+<h5 id="使用root用户登录Linux系统后，在终端打开后显示”-bash-4-1-”"><a href="#使用root用户登录Linux系统后，在终端打开后显示”-bash-4-1-”" class="headerlink" title="使用root用户登录Linux系统后，在终端打开后显示”-bash-4.1#”"></a>使用root用户登录Linux系统后，在终端打开后显示”-bash-4.1#”</h5><p>可能是不小心把&#x2F;root下的文件删除了<code>.bash_profile</code>和<code>.bashrc</code></p>
+<p>而这两个文件都会在&#x2F;etc&#x2F;skel模板目录下</p>
+<p>将这两个文件复制到&#x2F;root下，使用reboot命令重启系统即可，(可以尝试重试ssh链接,<code>猜想</code>)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/skel/.bash_profile /root</span><br><span class="line">cp /etc/skel/.bashrc /root</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="CentOS-7-系统备份与还原"><a href="#CentOS-7-系统备份与还原" class="headerlink" title="CentOS 7 系统备份与还原"></a><a target="_blank" rel="noopener" href="http://t.csdn.cn/bVVd6">CentOS 7 系统备份与还原</a></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /   # 进入根目录</span><br><span class="line">tar -zcvpf centos7.tgz --exclude=/proc --exclude=/lost+found --exclude=/mnt --exclude=/sys --exclude=centos7.tgz /   # 打包所有根目录下的文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvpfz backup.tar.gz -C /    # 还原</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/reshat-release   	# 查看系统版本 针对RedHat</span><br><span class="line">cat /etc/issue   			# 查看系统版本 适用于所有Linux发行版本</span><br><span class="line"></span><br><span class="line">uname -a 			  # 查看系统内核</span><br><span class="line">cat /proc/version	  # 查看系统内核</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="stress性能压测工具"><a href="#stress性能压测工具" class="headerlink" title="stress性能压测工具"></a>stress性能压测工具</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34556414/article/details/106885472">https://blog.csdn.net/qq_34556414/article/details/106885472</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/supahero/article/details/107546176">https://blog.csdn.net/supahero/article/details/107546176</a></p>
+<h4 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# ping www.baidu.com</span><br><span class="line">ping: www.baidu.com: Name or service not known</span><br><span class="line"></span><br><span class="line">查看网卡配置文件内 dns 写法 “DNS1=”</span><br><span class="line">桥接方式的dns地址可以直接指向网关</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://rskill.vaiwan.com/">http://rskill.vaiwan.com/</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2021-10-25 15:17:11
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Linux/" title="Linux">
+                        #Linux
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/11/12/OpenStack%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dhclient-%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96ip"><span class="toc-text">dhclient 自动获取ip</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#history-%E6%9F%A5%E7%9C%8B%E6%89%A7%E8%A1%8C%E8%BF%87%E7%9A%84%E5%91%BD%E4%BB%A4-c-%E7%94%A8%E6%9D%A5%E6%B8%85%E9%99%A4%E5%91%BD%E5%90%8D%E8%AE%B0%E5%BD%95"><span class="toc-text">history 查看执行过的命令  -c 用来清除命名记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mkdir%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-text">mkdir创建文件夹</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yum%E5%91%BD%E4%BB%A4"><span class="toc-text">yum命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#touch%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-text">touch创建文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cat-tac-more-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-text">cat  tac  more  查看文件内容</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find-%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="toc-text">find 查找命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AF%E8%BF%9E%E6%8E%A5-%E7%B1%BB%E4%BC%BC%E4%BA%8EWindows%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="toc-text">软连接 - 类似于Windows系统中的快捷方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#netstat%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="toc-text">netstat查看当前网络状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ping%E5%91%BD%E4%BB%A4"><span class="toc-text">ping命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#telnet%E5%91%BD%E4%BB%A4"><span class="toc-text">telnet命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#top-x2F-htop-%E7%8A%B6%E6%80%81%E7%9B%91%E6%8E%A7"><span class="toc-text">top &#x2F; htop 状态监控</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Speedtest%E6%B5%8B%E9%80%9F-%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">Speedtest测速 - 命令行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-x2F-etc-x2F-sysconfig-x2F-network-scripts"><span class="toc-text">网卡配置文件 &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dd%E5%91%BD%E4%BB%A4-%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E9%9D%A2%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D%E6%88%90%E4%B8%80%E4%B8%AA%E9%95%9C%E5%83%8F%E6%96%87%E4%BB%B6"><span class="toc-text">dd命令 文件夹下面所有文件拷贝成一个镜像文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#systemctl%E5%91%BD%E4%BB%A4-%E2%80%93-%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-text">systemctl命令 – 管理系统服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">防火墙相关命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E5%85%8D%E7%A7%98%E9%92%A5"><span class="toc-text">主机间的相互免秘钥</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%A7%98%E9%92%A5"><span class="toc-text">生成秘钥</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E7%A7%98%E9%92%A5"><span class="toc-text">发送秘钥</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E5%90%8D%E4%B8%8Ehost%E6%A0%A1%E9%AA%8C"><span class="toc-text">主机名与host校验</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E8%BF%87%E5%90%8E%E5%86%8D%E6%AC%A1%E7%99%BB%E5%BD%95%E5%90%8C%E4%B8%80ip%E5%9C%B0%E5%9D%80%E4%BD%86%E6%98%AF%E5%AF%86%E9%92%A5%E4%B8%8D%E5%90%8C%E7%9A%84%E6%9C%BA%E5%99%A8"><span class="toc-text">远程登录过后再次登录同一ip地址但是密钥不同的机器</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="toc-text">服务器时间同步</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SELinux"><span class="toc-text">SELinux</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Windows%E5%92%8Clinux%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-text">Windows和linux的文件传输方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#linux%E5%92%8Clinux%E5%86%85%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="toc-text">linux和linux内文件传输</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2"><span class="toc-text">分区信息查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B"><span class="toc-text">文件压缩与解压</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#vi-%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-text">vi 编辑器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-text">用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-text">创建用户</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81"><span class="toc-text">设置密码</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7"><span class="toc-text">删除用户</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%90%8D"><span class="toc-text">修改用户名</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E7%94%A8%E6%88%B7"><span class="toc-text">切换用户</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="toc-text">组管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BB%84"><span class="toc-text">创建组</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BB%84"><span class="toc-text">删除组</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BB%84%E5%90%8D"><span class="toc-text">修改组名</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E5%AF%B9%E5%BA%94%E7%9A%84%E7%BB%84"><span class="toc-text">查看用户对应的组</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E7%9A%84%E7%BB%84"><span class="toc-text">修改用户的组</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9D%83%E9%99%90"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">管道和重定向</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91-%E2%80%98%E2%80%99-gt-%E2%80%99%E2%80%99-%E2%80%99%E2%80%99-gt-gt-%E2%80%99%E2%80%99"><span class="toc-text">重定向  ‘’&gt;’’ ,’’&gt;&gt;’’</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E4%BD%BF%E7%94%A8"><span class="toc-text">组合使用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%BB%91%E6%B4%9E%EF%BC%9A%E5%A4%84%E7%90%86%E6%8E%89%E6%97%A0%E5%85%B3%E7%B4%A7%E8%A6%81%E7%9A%84%E7%BB%88%E7%AB%AF%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA%E4%BF%A1%E6%81%AF"><span class="toc-text">数据黑洞：处理掉无关紧要的终端打印输出信息</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B"><span class="toc-text">杀死进程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B"><span class="toc-text">后台进程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#jobs-l"><span class="toc-text">jobs -l</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#nohup"><span class="toc-text">nohup</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%80%E6%8E%89%E8%BF%9B%E7%A8%8B"><span class="toc-text">杀掉进程</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%8E%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD"><span class="toc-text">修改配置文件后重新加载</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98"><span class="toc-text">磁盘</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD"><span class="toc-text">挂载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E6%8C%82%E8%BD%BD"><span class="toc-text">取消挂载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%82%E8%BD%BDexFAT%E6%A0%BC%E5%BC%8F"><span class="toc-text">挂载exFAT格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">磁盘相关命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-text">开机自动挂载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E6%89%A7%E8%A1%8C-crontab-x2F-cron"><span class="toc-text">自动执行 crontab &#x2F; cron</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E9%97%B4-x2F-%E6%97%B6%E5%8C%BA"><span class="toc-text">时间&#x2F;时区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BD%91%E5%8D%A1%E9%87%8D%E5%90%AF%E5%A4%B1%E8%B4%A5"><span class="toc-text">网卡重启失败</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#screen-%E5%91%BD%E4%BB%A4"><span class="toc-text">screen 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#wget%E5%91%BD%E4%BB%A4"><span class="toc-text">wget命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E5%92%8C%E8%84%9A%E6%9C%AC%E7%9A%84%E6%97%B6%E5%80%99%E6%8C%89%E4%B8%8B-ctrl-c-%E5%92%8C-ctrl-z-%E5%8C%BA%E5%88%AB"><span class="toc-text">运行程序和脚本的时候按下  ctrl + c 和 ctrl + z  区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8root%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95Linux%E7%B3%BB%E7%BB%9F%E5%90%8E%EF%BC%8C%E5%9C%A8%E7%BB%88%E7%AB%AF%E6%89%93%E5%BC%80%E5%90%8E%E6%98%BE%E7%A4%BA%E2%80%9D-bash-4-1-%E2%80%9D"><span class="toc-text">使用root用户登录Linux系统后，在终端打开后显示”-bash-4.1#”</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CentOS-7-%E7%B3%BB%E7%BB%9F%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F"><span class="toc-text">CentOS 7 系统备份与还原</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF"><span class="toc-text">查看系统信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#stress%E6%80%A7%E8%83%BD%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="toc-text">stress性能压测工具</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E9%94%99"><span class="toc-text">报错</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/rskil">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a href="/">Copyright © 2024 rskil</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+      
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4 + '&url=' + http%3A%2F%2Fexample.com%2F2021%2F10%2F25%2FLinux%25E5%25B8%25B8%25E7%2594%25A8%25E5%2591%25BD%25E4%25BB%25A4%25E5%2592%258C%25E9%2581%2587%25E5%2588%25B0%25E7%259A%2584%25E9%2597%25AE%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2021/10/25/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

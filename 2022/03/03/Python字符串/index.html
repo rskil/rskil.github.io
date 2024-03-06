@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Python字符串 
+      
+      
+      |
+    
+     rskil_blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">rskil</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Python字符串</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2022-03-03 20:23:50
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                    #笔记
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>字符串格式化，字符串查找，替换，分割，拼接，删除，大小写转换，对齐方式 …</p>
+<span id="more"></span>
+
+<h3 id="字符串介绍"><a href="#字符串介绍" class="headerlink" title="字符串介绍"></a>字符串介绍</h3><p>字符串是由字母，符号或数字组成的字符序列</p>
+<p>除此之外，还可以利用反斜杠”\“对引号转义来实现，此时Python解释器就会将其视为一个普通的字符，而非特殊字符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;let&#x27;</span>s learn Python<span class="string">&#x27;)		  # 不加“\”会报错</span></span><br><span class="line"><span class="string">print(&#x27;</span>let\<span class="string">&#x27;s learn Python&#x27;</span>)	  <span class="comment"># 输出为 let&#x27;s learn Python 单引号+斜杠</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;let&#x27;s learn Python&quot;</span>)		  <span class="comment"># 输出为 let&#x27;s learn Python 双引号</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;let&#x27;s learn Python&quot;&quot;&quot;</span>)	  <span class="comment"># 输出为 let&#x27;s learn Python 三个引号</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="特殊转义字符"><a href="#特殊转义字符" class="headerlink" title="特殊转义字符"></a>特殊转义字符</h3><p>​	一些普通字符与斜杠组合后将失去原有意义，产生新的含义。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\b  	<span class="comment"># 退格</span></span><br><span class="line">\n  	<span class="comment"># 换行</span></span><br><span class="line">\v  	<span class="comment"># 纵向制表符</span></span><br><span class="line">\t  	<span class="comment"># 横向制表符</span></span><br><span class="line">\r  	<span class="comment"># 回车</span></span><br></pre></td></tr></table></figure>
+
+<p>​	如果一段字符串中包含多个转义字符，但又不希望转义字符产生作用。可以使用原始字符串，即在字符串开始的引号之前添加r或R，使其<strong>原样输出</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">r&#x27;\n \b \f&#x27;</span>)  <span class="comment"># 输出为 \n \b \f</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h3><h4 id="使用-格式化字符串"><a href="#使用-格式化字符串" class="headerlink" title="使用%格式化字符串"></a>使用%格式化字符串</h4><p>字符串具有一种特殊的内置操作，它可以使用%进行格式化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">100</span></span><br><span class="line">b=<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;我们班有%d人&#x27;</span>%a)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;我们班有%03d人&#x27;</span>%b)   <span class="comment"># %03d 把这个数变成3位的，空位用0补齐</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;我们班有%d人，平均分%.2f&#x27;</span>%(a,b))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 我们班有100人</span></span><br><span class="line"><span class="comment"># 我们班有001人</span></span><br><span class="line"><span class="comment"># 我们班有100人，平均分1.00</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Python中常见的格式符"><a href="#Python中常见的格式符" class="headerlink" title="Python中常见的格式符"></a>Python中常见的格式符</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    	将对应的数据格式化为</span><br><span class="line">%c		<span class="comment"># 字符</span></span><br><span class="line">%s		<span class="comment"># 字符串</span></span><br><span class="line">%d		<span class="comment"># 整数</span></span><br><span class="line">%u		<span class="comment"># 无符号整形 </span></span><br><span class="line">%o		<span class="comment"># 无符号八进制数</span></span><br><span class="line">%x		<span class="comment"># 无符号十六进制数</span></span><br><span class="line">%f		<span class="comment"># 浮点数，可指定小数点后的精度(默认保留6位小数)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="使用format-方法格式化字符串"><a href="#使用format-方法格式化字符串" class="headerlink" title="使用format()方法格式化字符串"></a>使用format()方法格式化字符串</h4><p>​	虽然使用%号可以对字符串进行格式化，但这种方式并不是很直观，一旦开发人员遗漏了要替换的数据或者选择了不匹配的格式符，就会导致字符串格式化失败。为了能更加直观，便捷的格式化字符串。Python为字符串提供了一个格式化方法 format()。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span>.<span class="built_in">format</span>(values)		</span><br><span class="line"><span class="comment"># format()方法格式  </span></span><br><span class="line"><span class="comment"># str表示需要被格式化的字符串 字符串中包含单个或多个为真实数据占位的符号 &quot;&#123;&#125;&quot; </span></span><br><span class="line"><span class="comment"># values表示单个或多个待被替换的真实数据多个数据之间以逗号分隔</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wo = <span class="string">&#x27;我&#x27;</span></span><br><span class="line">age = <span class="built_in">int</span>(<span class="number">18</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#123;&#125;爱学习&#x27;</span>.<span class="built_in">format</span>(wo))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#123;&#125;爱学习，&#123;:.2f&#125;岁&#x27;</span>.<span class="built_in">format</span>(wo,age))	 <span class="comment"># 字符串中的&#123;&#125;可以指定替换的浮点型数据的精度，按指定精度来格式化</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#123;1&#125;爱学习，&#123;0&#125;岁&#x27;</span>.<span class="built_in">format</span>(age,wo))      <span class="comment"># 字符串的&#123;&#125;可以明确的指定编号，格式化字符串的时会按编号来进行取值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#123;w&#125;爱学习，&#123;t&#125;岁&#x27;</span>.<span class="built_in">format</span>(w=wo,t=age))  <span class="comment"># 字符串&#123;&#125;指定名称，Python解释器会按真实数据绑定的名称替换&#123;&#125;中的变量</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="使用-f-string-格式化字符串"><a href="#使用-f-string-格式化字符串" class="headerlink" title="使用 f- string 格式化字符串"></a>使用 f- string 格式化字符串</h4><p>​	f -string是一种更为简洁的格式化字符串的方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;输入十进制数&#x27;</span>))</span><br><span class="line">xuan = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;1.二进制 2.八进制 3.十进制 4.十六进制&#x27;</span>))</span><br><span class="line"><span class="keyword">if</span> xuan == <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>,的十进制进制为<span class="subst">&#123;<span class="built_in">bin</span>(num)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> xuan == <span class="number">2</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>,的十进制进制为<span class="subst">&#123;<span class="built_in">oct</span>(num)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> xuan == <span class="number">3</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>,的十进制进制为<span class="subst">&#123;<span class="built_in">int</span>(num)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> xuan == <span class="number">4</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>,的十进制进制为<span class="subst">&#123;<span class="built_in">hex</span>(num)&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串的常见操作"><a href="#字符串的常见操作" class="headerlink" title="字符串的常见操作"></a>字符串的常见操作</h3><h4 id="字符串的查找与替换"><a href="#字符串的查找与替换" class="headerlink" title="字符串的查找与替换"></a>字符串的查找与替换</h4><h5 id="字符串查找-find"><a href="#字符串查找-find" class="headerlink" title="字符串查找 find"></a>字符串查找 find</h5><p>​	Python中提供了实现字符串查找操作的**find()**方法，该方法可查找字符串中是否包含子串，若包含返回字串首次出现的索引位置，若没有找到返回 -1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test.find(sub[,start[,end]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># sub   指定要查找的字串</span></span><br><span class="line"><span class="comment"># start 开始索引，默认从0开始</span></span><br><span class="line"><span class="comment"># end   结束索引，默认为字符串的长度</span></span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test = <span class="string">&#x27;12312333&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(test.find(<span class="string">&#x27;1&#x27;</span>))		<span class="comment"># 查找1 				   # 输出结果为 0 </span></span><br><span class="line"><span class="built_in">print</span>(test.find(<span class="string">&#x27;1&#x27;</span>,<span class="number">1</span>))     <span class="comment"># 查找1 从索引1的位置开始找  # 输出结果为  3</span></span><br><span class="line"><span class="built_in">print</span>(test.find(<span class="string">&#x27;1&#x27;</span>,<span class="number">2</span>))     <span class="comment"># 查找1 从索引2的位置开始找  # 输出结果为  3</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="字符串替换-replace"><a href="#字符串替换-replace" class="headerlink" title="字符串替换 replace"></a><strong>字符串替换 replace</strong></h5><p>​	Python中提供了实现字符串替换操作的<strong>replace()</strong> 方法，该方法可将当前字符串中的指定字符串替换成新子串，并返回替换后的新字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span>.replace(old,new[,count])</span><br><span class="line"></span><br><span class="line"><span class="comment"># old    被替换的旧子串</span></span><br><span class="line"><span class="comment"># new	 替换旧子串的新</span></span><br><span class="line"><span class="comment"># count  表示替换旧字符串的次数，默认全部替换</span></span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string = <span class="string">&quot;abc ABC abc ABC abc&quot;</span></span><br><span class="line">new_string = string.replace(<span class="string">&#x27;abc&#x27;</span>,<span class="string">&#x27;AbC&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(new_string)   <span class="comment"># 输出为 AbC ABC AbC ABC AbC</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="字符串的分割与拼接"><a href="#字符串的分割与拼接" class="headerlink" title="字符串的分割与拼接"></a>字符串的分割与拼接</h4><h5 id="字符串的分割-split"><a href="#字符串的分割-split" class="headerlink" title="字符串的分割 split"></a>字符串的分割 split</h5><p>​	split()方法可以按照指定的分割符对字符串进行分割，该方法会返回由分割后的子串组成的<strong>列表</strong> </p>
+<p>split()方法语法格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span>.split(sep=<span class="literal">None</span>,maxsplit=-<span class="number">1</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment"># sep 		分割符,默认为空字符</span></span><br><span class="line"><span class="comment"># maxsplit  分割次数，默认值为-1,表不限制分割次数</span></span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string_split = <span class="string">&quot; The more efforts you make , the more fortune you get.&quot;</span></span><br><span class="line"><span class="built_in">print</span>(string_split.split())         </span><br><span class="line"><span class="comment"># 输出为  [&#x27;The&#x27;, &#x27;more&#x27;, &#x27;efforts&#x27;, &#x27;you&#x27;, &#x27;make&#x27;, &#x27;,&#x27;, &#x27;the&#x27;, &#x27;more&#x27;, &#x27;fortune&#x27;, &#x27;you&#x27;, &#x27;get.&#x27;]</span></span><br><span class="line"><span class="built_in">print</span>(string_split.split(<span class="string">&#x27;m&#x27;</span>))    </span><br><span class="line"><span class="comment"># 输出为  [&#x27; The &#x27;, &#x27;ore efforts you &#x27;, &#x27;ake , the &#x27;, &#x27;ore fortune you get.&#x27;]</span></span><br><span class="line"><span class="built_in">print</span>(string_split.split(<span class="string">&#x27;e&#x27;</span>,<span class="number">2</span>))  </span><br><span class="line"><span class="comment"># 输出为  [&#x27; Th&#x27;, &#x27; mor&#x27;, &#x27; efforts you make , the more fortune you get.&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="字符串的拼接-join"><a href="#字符串的拼接-join" class="headerlink" title="字符串的拼接 join"></a>字符串的拼接 join</h5><p>​	join方法使用指定的字符连接字符串并生成一个新的字符串。</p>
+<p>join()方法语法格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span>.join(iterable)</span><br><span class="line"><span class="comment"># iterable 表示连接字符串的字符</span></span><br></pre></td></tr></table></figure>
+
+<p>举例 使用”*” 连接字符串”Python”中的各个字符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string_1 = <span class="string">&#x27;*&#x27;</span></span><br><span class="line">string_2 = <span class="string">&#x27;Python&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(string_1.join(string_2))   <span class="comment"># 输出为 P*y*t*h*o*n</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="Python中还可以使用运算符”-”进行拼接"><a href="#Python中还可以使用运算符”-”进行拼接" class="headerlink" title="Python中还可以使用运算符”+”进行拼接"></a>Python中还可以使用运算符”+”进行拼接</h6><p>拼接<strong>字符串</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">srtring_1 = <span class="string">&#x27;Py&#x27;</span></span><br><span class="line">srtring_2 = <span class="string">&quot;thon&quot;</span></span><br><span class="line"><span class="built_in">print</span>(srtring_1+srtring_2)   <span class="comment"># 输出为 Python</span></span><br></pre></td></tr></table></figure>
+
+<p>同样也可以对<strong>列表</strong>进行拼接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">srtring_1 = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">srtring_2 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="built_in">print</span>(srtring_1+srtring_2)  <span class="comment"># 输出为 [4, 5, 6, 1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="删除字符串的指定字符-strip，lstrip，lstrip"><a href="#删除字符串的指定字符-strip，lstrip，lstrip" class="headerlink" title="删除字符串的指定字符  strip，lstrip，lstrip"></a>删除字符串的指定字符  strip，lstrip，lstrip</h4><p>​	字符串头部或尾部中可能包含一些无用的字符(比如 空格)，在处理字符串之前往往需要先删除这些无用的字符。</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">语法格式</th>
+<th align="center">功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">strip()</td>
+<td align="center">str.strip([chars])</td>
+<td align="center">移除字符串头部和尾部的指定字符</td>
+</tr>
+<tr>
+<td align="center">lstrip()</td>
+<td align="center">str.lstrip([chars])</td>
+<td align="center">移除字符串头部的指定字符</td>
+</tr>
+<tr>
+<td align="center">rstrip()</td>
+<td align="center">str.rstrip([chars])</td>
+<td align="center">移除字符串尾部的指定字符</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string_test = <span class="string">&quot;  Life is short , Use Python !  &quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;&quot;<span class="subst">&#123;string_test.strip()&#125;</span>&quot;&#x27;</span>)  <span class="comment"># 输出为  &quot;Life is short , Use Python !&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;&quot;<span class="subst">&#123;string_test.lstrip()&#125;</span>&quot;&#x27;</span>) <span class="comment"># 输出为  &quot;Life is short , Use Python !  &quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;&quot;<span class="subst">&#123;string_test.rstrip()&#125;</span>&quot;&#x27;</span>) <span class="comment"># 输出为  &quot;  Life is short , Use Python !&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="字符串大小写转换-upper，lower，capitalize，title"><a href="#字符串大小写转换-upper，lower，capitalize，title" class="headerlink" title="字符串大小写转换 upper，lower，capitalize，title"></a>字符串大小写转换 upper，lower，capitalize，title</h4><p>一些特定的情况会对英文单词的大小写形式有要求，这时就可以用到以下方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">upper()</td>
+<td>将字符串内的字母全转换成大写</td>
+</tr>
+<tr>
+<td align="center">lower()</td>
+<td>将字符串内的字母全转换成小写</td>
+</tr>
+<tr>
+<td align="center">capitalize()</td>
+<td>将字符串中第一个字母转换成大写形式</td>
+</tr>
+<tr>
+<td align="center">title()</td>
+<td>将每个单词的首字母转换为大写字母</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test_string = <span class="string">&quot;hello Python &quot;</span></span><br><span class="line"><span class="built_in">print</span>(test_string.upper()) 		<span class="comment"># 输出为 HELLO PYTHON</span></span><br><span class="line"><span class="built_in">print</span>(test_string.lower()) 		<span class="comment"># 输出为 hello python</span></span><br><span class="line"><span class="built_in">print</span>(test_string.capitalize()) <span class="comment"># 输出为 Hello python</span></span><br><span class="line"><span class="built_in">print</span>(test_string.title()) 		<span class="comment"># 输出为 Hello Python </span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="字符串对齐-center，ljust，rjust"><a href="#字符串对齐-center，ljust，rjust" class="headerlink" title="字符串对齐 center，ljust，rjust"></a>字符串对齐 center，ljust，rjust</h4><p>​	在使用Word处理文档时有时需要对文档的格式进行调整，如标题居中，左对齐，右对齐等。</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">语法格式</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">center()</td>
+<td align="center">str.center(width[,fillchar])</td>
+<td>返回长度为width的字符串，原字符串居中显示</td>
+</tr>
+<tr>
+<td align="center">ljust()</td>
+<td align="center">str.ljust(width[,fillchar])</td>
+<td>返回长度为width的字符串，原字符串左对齐显示</td>
+</tr>
+<tr>
+<td align="center">rjust()</td>
+<td align="center">str.rjust(width[,fillchar])</td>
+<td>返回长度为width的字符串，原字符串右对齐显示</td>
+</tr>
+</tbody></table>
+<p>​	如果参数width指定的长度小于或等于原字符串长度，那么以上各方法会返回原字符串，参数fillchar表示参数width指定的长度大于原字符串长度时填充的字符，默认填充为空格</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test_string = <span class="string">&quot;Hello word&quot;</span></span><br><span class="line">test_center = test_string.center(<span class="number">13</span>,<span class="string">&#x27;-&#x27;</span>) 	 <span class="comment"># 长度为13,居中显示,使用 - 补齐</span></span><br><span class="line">test_ljust = test_string.ljust(<span class="number">13</span>,<span class="string">&#x27;*&#x27;</span>)       <span class="comment"># 长度为13,左对齐显示,使用 * 补齐</span></span><br><span class="line">test_rjust = test_string.rjust(<span class="number">13</span>,<span class="string">&#x27;%&#x27;</span>)       <span class="comment"># 长度为13,右对齐显示,使用 % 补齐</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;居中显示：<span class="subst">&#123;test_center&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;左对齐显示：<span class="subst">&#123;test_ljust&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;右对齐显示：<span class="subst">&#123;test_rjust&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/03/01/Python%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2022-03-03 20:23:50
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                        #笔记
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/03/08/Python%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BB%8B%E7%BB%8D"><span class="toc-text">字符串介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">特殊转义字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">格式化字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">使用%格式化字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Python%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A0%BC%E5%BC%8F%E7%AC%A6"><span class="toc-text">Python中常见的格式符</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8format-%E6%96%B9%E6%B3%95%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">使用format()方法格式化字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-f-string-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">使用 f- string 格式化字符串</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C"><span class="toc-text">字符串的常见操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9F%A5%E6%89%BE%E4%B8%8E%E6%9B%BF%E6%8D%A2"><span class="toc-text">字符串的查找与替换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE-find"><span class="toc-text">字符串查找 find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2-replace"><span class="toc-text">字符串替换 replace</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%88%86%E5%89%B2%E4%B8%8E%E6%8B%BC%E6%8E%A5"><span class="toc-text">字符串的分割与拼接</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%88%86%E5%89%B2-split"><span class="toc-text">字符串的分割 split</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8B%BC%E6%8E%A5-join"><span class="toc-text">字符串的拼接 join</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Python%E4%B8%AD%E8%BF%98%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E8%BF%90%E7%AE%97%E7%AC%A6%E2%80%9D-%E2%80%9D%E8%BF%9B%E8%A1%8C%E6%8B%BC%E6%8E%A5"><span class="toc-text">Python中还可以使用运算符”+”进行拼接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8C%87%E5%AE%9A%E5%AD%97%E7%AC%A6-strip%EF%BC%8Clstrip%EF%BC%8Clstrip"><span class="toc-text">删除字符串的指定字符  strip，lstrip，lstrip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2-upper%EF%BC%8Clower%EF%BC%8Ccapitalize%EF%BC%8Ctitle"><span class="toc-text">字符串大小写转换 upper，lower，capitalize，title</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E9%BD%90-center%EF%BC%8Cljust%EF%BC%8Crjust"><span class="toc-text">字符串对齐 center，ljust，rjust</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/rskil">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a href="/">Copyright © 2024 rskil</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+      
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Python%E5%AD%97%E7%AC%A6%E4%B8%B2 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F03%2F03%2FPython%25E5%25AD%2597%25E7%25AC%25A6%25E4%25B8%25B2%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/03/03/Python%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

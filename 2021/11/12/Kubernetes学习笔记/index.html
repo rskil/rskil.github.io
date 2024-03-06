@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Kubernetes 学习笔记 
+      
+      
+      |
+    
+     rskil_blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">rskil</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Kubernetes 学习笔记</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2021-11-12 19:43:55
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                    #笔记
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>容器的管理问题统称容器编排问题</p>
+<p>自我修复，弹性伸缩，服务发现，负载均衡，版本退回，存储编排</p>
+<p><img src="https://img-blog.csdnimg.cn/38d4e86d36154b76904d5d5819764cc5.png" alt="docker ps 测试"></p>
+<h4 id="yaml语法"><a href="#yaml语法" class="headerlink" title="yaml语法"></a>yaml语法</h4><ol>
+<li>大小写敏感</li>
+<li>使用缩进表示层级关系</li>
+<li>保持左对齐</li>
+<li>低版本缩进不支持Tab 只支持空格</li>
+<li>用#注释</li>
+</ol>
+<p>支持的数据类型：</p>
+<p>​	纯量：简单的数值，字符串，布尔值，整数，浮点数，null，时间，日期</p>
+<p>​	对象：数值对的集合，又称为映射、哈希，字典</p>
+<p>​	数组：一组按次序排列的值，又称为序列，列表</p>
+<h5 id="资源管理方式"><a href="#资源管理方式" class="headerlink" title="资源管理方式"></a>资源管理方式</h5><p> 命令式对象管理：直接用命令去操作k8s资源</p>
+<p> 命令式对象配置：通过命令去配置和配置文件去操作k8s</p>
+<p>申明式对象配置：通过apply命令和配置文件操作k8s</p>
+<p>​				apply 没有创建的时候就创建，创建了的话就更新</p>
+<h4 id="kubectl命令"><a href="#kubectl命令" class="headerlink" title="kubectl命令"></a>kubectl命令</h4><p>​	是k8s集群的命令行工具</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl version #查看版本</span><br><span class="line">		cluster-info #集群信息</span><br><span class="line">		get nodes #查看节点</span><br><span class="line">		describe</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h4><p>​		namespace是k8s系统中的一种非常重要的资源主要作用是用来实现多套环境的资源隔离，多租户资源的隔离，相当于分组</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">kubectl get ns #查看所有namespace +上空间名称看出空间内的资源</span><br><span class="line">default #默认空间</span><br><span class="line">kubectl create ns name  	#创建该名称空间</span><br><span class="line">kubectl delete ns namespace 	#删除该名称空间</span><br><span class="line"></span><br><span class="line">yaml文件创建</span><br><span class="line">首先得有一个yaml文件，文件内写好了配置</span><br><span class="line"></span><br><span class="line">kubectl create -f filename.yaml #以yaml内配置信息创建一个namespace</span><br><span class="line">kubectl delete -f filename.yuml #删除namespace</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h4><p> pod是kubernetes集群进行管理的最小单元，程序要运行必须部署在容器中，而容器必须存在pod中，pod可以认为是容器的封装，一个pod中可以存在一个或多个容器</p>
+<p>pod → 容器 → 程序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">kubectl run nginx --image=nginx --port=80 #通过pod控制器创建</span><br><span class="line">kubectl run nginx --image=nginx --namespace ddd #创建到ddd内</span><br><span class="line">kubectl get pod nginx -o wide #查看 </span><br><span class="line"></span><br><span class="line">[root@master ~]# kubectl get pod --namespace ddd  #查看ddd内的pod</span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx   1/1     Running   0          100s</span><br><span class="line"></span><br><span class="line">kubectl get pod --namespace ddd -o wide #查看pod信息</span><br><span class="line"></span><br><span class="line">kubectl describe pod nginx			 #查看pod详情</span><br><span class="line">kubectl describe pod --namespace ddd</span><br><span class="line"></span><br><span class="line">kubectl get deployment -n ddd #查看pod控制器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">pod创建信息</span></span><br><span class="line">Events:</span><br><span class="line">  Type    Reason     Age    From               Message</span><br><span class="line">  ----    ------     ----   ----               -------</span><br><span class="line">  Normal  Scheduled  4m4s   default-scheduler  Successfully assigned default/nginx to node</span><br><span class="line">  Normal  Pulling    4m3s   kubelet, node      Pulling image &quot;nginx&quot;</span><br><span class="line">  Normal  Pulled     3m50s  kubelet, node      Successfully pulled image &quot;nginx&quot;</span><br><span class="line">  Normal  Created    3m50s  kubelet, node      Created container nginx</span><br><span class="line">  Normal  Started    3m50s  kubelet, node      Started container nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod name -n namespace 	#删除pod，但是如果是命令行启动的话就会有pod控制器的话是会将这个pod删掉后又重新键一个pod的 必须删除pod控制器才行</span><br><span class="line">kubectl delete deploy name -n namespace  #删除pod控制器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f filename.yaml #以yaml内配置信息创建一个pod</span><br><span class="line">kubectl delete -f filename.yuml #删除pod</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Label"><a href="#Label" class="headerlink" title="Label"></a>Label</h4><p>​	label是kubernetes系统中的一个重要概念，它的作用是在资源上添加表示，用来对资源进行区分和选择</p>
+<p>​	label特点 ：所有资源上都可以添加标签</p>
+<p>​						 可以通过Label实现资源的多维度分组，以便灵活，方便的进行资源分配，调度，配置，部署等管理工作</p>
+<p>​	标签也分为：版本标签( version )，环境标签( env )，架构标签( tier )……</p>
+<h5 id="Label-Selector-标签选择器"><a href="#Label-Selector-标签选择器" class="headerlink" title="Label Selector 标签选择器"></a>Label Selector 标签选择器</h5><p>​	基于等式的标签选择器</p>
+<p>​	基于集合的标签选择器</p>
+<p>​	可以使用多个标签选择器用 “，”隔开</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n ddd --show-labels  		#查看pod标签</span><br><span class="line">kubectl label pod nginx -n ddd version=1.1 	#打标签</span><br><span class="line">kubectl label pod nginx -n ddd version=2.1 --overwrite #标签更新</span><br><span class="line">kubectl label pod nginx -n ddd run-			#标签删除</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]#  kubectl get pod -n ddd --show-labels</span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE   LABELS</span><br><span class="line">nginx   1/1     Running   0          84s   run=nginx</span><br><span class="line">[root@master ~]#  kubectl label pod nginx -n ddd version=1.1</span><br><span class="line">pod/nginx labeled</span><br><span class="line">[root@master ~]#  kubectl get pod -n ddd --show-labels</span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE     LABELS</span><br><span class="line">nginx   1/1     Running   0          2m50s   run=nginx,version=1.1</span><br><span class="line">[root@master ~]#  kubectl label pod nginx -n ddd version=2.1 --overwrite</span><br><span class="line">pod/nginx labeled</span><br><span class="line">[root@master ~]#  kubectl get pod -n ddd --show-labels</span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE     LABELS</span><br><span class="line">nginx   1/1     Running   0          7m32s   run=nginx,version=2.1</span><br><span class="line">[root@master ~]#  kubectl label pod nginx -n ddd run-</span><br><span class="line">pod/nginx labeled</span><br><span class="line">[root@master ~]#  kubectl get pod -n ddd --show-labels</span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE   LABELS</span><br><span class="line">nginx   1/1     Running   0          10m   version=2.1</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h4><p> pod控制器的一种，在k8s中Pod是最小控制单元，但是k8s很少直接控制pod一般都通过pod控制器来完成，pod控制器用于pod的管理，确保pod资源符合预期的状态，当pod的资源出现故障是，控制器会尝试重启或者重建pod</p>
+<p>新版本副本构建 创建了pod控制器后要等它完全创建后再去生成副本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl create deployment nginx --image=nginx  -n ddd</span><br><span class="line">deployment.apps/nginx created</span><br><span class="line">[root@master ~]# kubectl scale deployment nginx --replicas=3 -n ddd</span><br><span class="line">deployment.apps/nginx scaled</span><br><span class="line">[root@master ~]# kubectl get pod -n ddd</span><br><span class="line">NAME                    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-f89759699-ql5sc   1/1     Running   0          4m19s</span><br><span class="line">nginx-f89759699-vvs9v   1/1     Running   0          47s</span><br><span class="line">nginx-f89759699-z6m95   1/1     Running   0          47s</span><br></pre></td></tr></table></figure>
+
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><p>​	service可以看作是一组同类pod对外的访问接口，借助Service可以方便的实现服务发现和负载均衡</p>
+<h5 id="集群内部访问："><a href="#集群内部访问：" class="headerlink" title="集群内部访问："></a>集群内部访问：</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl expose deploy nginx --name=svc-nginx1 --type=ClusterIP --port=80 --target-port=80 -n ddd</span><br><span class="line">service/svc-nginx1 exposed</span><br><span class="line">[root@master ~]# kubectl get service -n ddd</span><br><span class="line">NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">svc-nginx1   ClusterIP   10.98.81.92   &lt;none&gt;        80/TCP    31s</span><br><span class="line">[root@master ~]# curl 10.98.81.92:80  #就可以访问Nginx服务了 稍微有点慢</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Welcome to nginx!&lt;/title&gt;</span><br><span class="line">......</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="集群外部访问："><a href="#集群外部访问：" class="headerlink" title="集群外部访问："></a>集群外部访问：</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]#  kubectl expose deploy nginx --name=svc-nginx2 --type=NodePort --port=80 --target-port=80 -n ddd</span><br><span class="line">service/svc-nginx2 exposed</span><br><span class="line">[root@master ~]# kubectl get svc -n ddd</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">svc-nginx1   ClusterIP   10.98.81.92     &lt;none&gt;        80/TCP         20m</span><br><span class="line">svc-nginx2   NodePort    10.104.142.33   &lt;none&gt;        80:30566/TCP   90s</span><br><span class="line">[root@master ~]# ip a | grep ens33</span><br><span class="line">2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    inet 192.168.16.90/24 brd 192.168.16.255 scope global noprefixroute dynamic ens33</span><br></pre></td></tr></table></figure>
+
+<p>外部浏览器访问： <a target="_blank" rel="noopener" href="http://192.168.16.90:30566/">http://192.168.16.90:30566/</a></p>
+<h5 id="删除service"><a href="#删除service" class="headerlink" title="删除service"></a>删除service</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get svc -n ddd</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">svc-nginx1   ClusterIP   10.98.81.92     &lt;none&gt;        80/TCP         30m</span><br><span class="line">svc-nginx2   NodePort    10.104.142.33   &lt;none&gt;        80:30566/TCP   11m</span><br><span class="line">[root@master ~]# kubectl delete svc --all -n ddd</span><br><span class="line">service &quot;svc-nginx1&quot; deleted</span><br><span class="line">service &quot;svc-nginx2&quot; deleted</span><br><span class="line">[root@master ~]# kubectl get svc -n ddd</span><br><span class="line">No resources found in ddd namespace.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="kubernetes运维"><a href="#kubernetes运维" class="headerlink" title="kubernetes运维"></a>kubernetes运维</h3><h5 id="node节点的隔离与恢复："><a href="#node节点的隔离与恢复：" class="headerlink" title="node节点的隔离与恢复："></a>node节点的隔离与恢复：</h5><p>​	在硬件升级、硬件维护等情况下，需要将某些Node隔离。使用kubectl cordon <node_name>命令可禁止Pod调度到该节点上，在其上运行的Pod并不会自动停止，管理员需要手动停止在该Node上运行的Pod。查看Node的状态，可以观察到在node的状态中增加了一项SchedulingDisabled，对于后续创建的Pod，系统将不会再向该Node进行调度。通过kubectl uncordon命令可完成对Node的恢复。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl cordon node</span><br><span class="line">node/node cordoned</span><br><span class="line">[root@master ~]# kubectl get nodes</span><br><span class="line">NAME     STATUS                     ROLES    AGE   VERSION</span><br><span class="line">master   Ready                      master   40h   v1.18.1</span><br><span class="line">node     Ready,SchedulingDisabled   &lt;none&gt;   40h   v1.18.1</span><br><span class="line">[root@master ~]# kubectl uncordon node</span><br><span class="line">node/node uncordoned</span><br><span class="line">[root@master ~]# kubectl get nodes</span><br><span class="line">NAME     STATUS   ROLES    AGE   VERSION</span><br><span class="line">master   Ready    master   40h   v1.18.1</span><br><span class="line">node     Ready    &lt;none&gt;   40h   v1.18.1</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/af63b141c7af4ce293bac198f85cf566.png" alt="k8s节点隔离"></p>
+<p>​	可以看到Node节点已恢复调度，允许Pod调度到该节点上。<br>通过kubectl drain <node>命令可实现对node节点的驱逐，该命令会删除该节点上的所有Pod（DaemonSet除外），在其他Node上重新启动它们。</p>
+<h5 id="Pod动态扩容和缩放："><a href="#Pod动态扩容和缩放：" class="headerlink" title="Pod动态扩容和缩放："></a>Pod动态扩容和缩放：</h5><p>​	在实际生产系统中，经常会遇到某个服务需要扩容的场景，也可能会遇到由于资源紧张或者工作负载降低而需要减少服务实例数量的场景。此时可以利用kubectl scale deployment命令来完成这些任务。<br>以Nginx Deployment为例，已定义的最初副本数量为1。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl create deployment nginx --image=nginx </span><br><span class="line">deployment.apps/nginx created</span><br><span class="line">[root@master ~]# kubectl get pod</span><br><span class="line">NAME                    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-f89759699-dj8nn   1/1     Running   0          26s</span><br><span class="line">[root@master ~]# kubectl scale deployment nginx --replicas=3 </span><br><span class="line">deployment.apps/nginx scaled</span><br><span class="line">[root@master ~]# kubectl get pod</span><br><span class="line">NAME                    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-f89759699-8rz9h   1/1     Running   0          40s</span><br><span class="line">nginx-f89759699-dj8nn   1/1     Running   0          2m5s</span><br><span class="line">nginx-f89759699-fm74s   1/1     Running   0          40s</span><br><span class="line">[root@master ~]# kubectl scale deployment nginx --replicas=2</span><br><span class="line">deployment.apps/nginx scaled</span><br><span class="line">[root@master ~]# kubectl get pod</span><br><span class="line">NAME                    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-f89759699-8rz9h   1/1     Running   0          65s</span><br><span class="line">nginx-f89759699-dj8nn   1/1     Running   0          2m30s</span><br></pre></td></tr></table></figure>
+
+<p>​	将–replicas设置为比当前Pod副本数量更小的数字，系统将会“杀掉”一些运行中的Pod，即可实现应用集群缩容。</p>
+<h5 id="将pod调度到指定的node节点"><a href="#将pod调度到指定的node节点" class="headerlink" title="将pod调度到指定的node节点"></a>将pod调度到指定的node节点</h5><p>​	Kubernetes的Scheduler服务（kube-scheduler进程）负责实现Pod的调度，整个调度过程通过执行一系列复杂的算法最终为每个Pod计算出一个最佳的目标节点，这一过程是自动完成的，用户无法知道Pod最终会被调度到哪个节点上。有时可能需要将Pod调度到一个指定的Node上。此时，可以通过Node的标签（Label）和Pod的nodeSelector属性相匹配，来达到上述目的。</p>
+<p>Label（标签）作为用户可灵活定义的对象属性，在已创建的对象上，仍然可以随时通过kubectl label命令对其进行增加、修改、删除等操作。如果想删除Label，只需要在命令行最后指定Label的key名，并加一个减号即可。可以再打一个标签，实现增加。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl label nodes node project=gcxt</span><br><span class="line">node/node labeled</span><br><span class="line">[root@master ~]# kubectl get nodes node --show-labels</span><br><span class="line">NAME   STATUS   ROLES    AGE   VERSION   LABELS</span><br><span class="line">node   Ready    &lt;none&gt;   40h   v1.18.1   …… project=gcxt</span><br><span class="line">[root@master ~]# kubectl label node node project-</span><br><span class="line">node/node labeled</span><br><span class="line">[root@master ~]# kubectl get nodes node --show-labels</span><br><span class="line">NAME   STATUS   ROLES    AGE   VERSION   LABELS</span><br><span class="line">node   Ready    &lt;none&gt;   40h   v1.18.1   ……</span><br></pre></td></tr></table></figure>
+
+<p>​	在Pod创建的yaml中加入nodeSelector定义</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">……</span></span><br><span class="line"><span class="attr">nodeSelector:</span></span><br><span class="line">	<span class="string">project:gcxt</span></span><br></pre></td></tr></table></figure>
+
+<p>​	再运行 kubectl create -f 命令创建Pod，scheduler就会将该Pod调度到拥有 project&#x3D;gcxt 标签的node节点上 ，kubectl get pods -owide查证<br>​	可以看到，Pod已成功调度到指定的Node节点。<br>这种基于Label标签的调度方式灵活性很高，比如，可以把一组Node分别贴上“开发环境”、“测试环境”、“生产环境”这3组标签中的一种，此时一个Kubernetes集群就承载了3个环境，这将大大提高开发效率。<br>​	<strong>注意：如果指定了Pod的nodeSelector条件，且集群中不存在包含相应标签的Node时，即使还有其他可供调度的Node，这个Pod也最终会调度失败。</strong></p>
+<h5 id="应用滚动升级"><a href="#应用滚动升级" class="headerlink" title="应用滚动升级"></a>应用滚动升级</h5><p>​	当集群中的某个服务需要升级时，需要停止目前与该服务相关的所有Pod，然后重新拉取镜像并启动。如果集群规模比较大，这个工作就变成了一个挑战。如果采取先全部停止，然后逐步升级的方式，会导致较长时间的服务不可用。Kubernetes提供了rolling-update（滚动升级）功能来解决上述问题。<br>滚动升级通过执行kubectl rolling-update命令一键完成，该命令创建了一个新的Deployment，然后自动控制旧的Deployment中的Pod副本数量逐渐减少到0，同时新的Deployment中的Pod副本数量从0逐步增加到目标值，最终实现了Pod的升级。<br><strong>注意：系统要求新的Deployment需要与旧的Deployment在相同的命名空间（Namespace）内，即不能把别人的资产偷偷转移到自家名下。</strong></p>
+<h6 id="滚动升级过程："><a href="#滚动升级过程：" class="headerlink" title="滚动升级过程："></a>滚动升级过程：</h6><p>​		① 启动一个新版Pod。<br>​		② 把旧版Pod数量降为2。<br>​		③ 再启动一个新版，数量变为2。<br>​		④ 把旧版Pod数量降为1。<br>​		⑤ 再启动一个新版，数量变为3。<br>​		⑥ 把旧版Pod数量降为0。<br>​		这就是滚动的意思，始终保持副本数量为3，控制新旧Pod的交替，实现了无缝升级。<br>​		kubectl apply每次更新应用时，kubernetes都会记录下当前的配置，保存为一个revision，这样就可以回滚到某个特定的版本。</p>
+<p>写一个配置文件 htppd.yaml </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">spec:</span> </span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">httpd</span></span><br><span class="line">  <span class="attr">template:</span> </span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">httpd</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">httpd:2.2.31</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>启动Deployment。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl create -f htppd.yaml </span></span><br><span class="line">deployment.apps/httpd created</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment">#  kubectl get pods</span></span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">httpd<span class="literal">-5f8664fc66-8wkj8</span>   <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">3</span>m6s</span><br><span class="line">httpd<span class="literal">-5f8664fc66-dtpvp</span>   <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">3</span>m6s</span><br><span class="line">httpd<span class="literal">-5f8664fc66-ll6z6</span>   <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">3</span>m6s</span><br><span class="line"><span class="comment"># 查看deploy</span></span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl get deploy httpd -o wide</span></span><br><span class="line">NAME    READY   UP<span class="literal">-TO-DATE</span>   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR</span><br><span class="line">httpd   <span class="number">3</span>/<span class="number">3</span>     <span class="number">3</span>            <span class="number">3</span>           <span class="number">41</span>m   httpd        httpd:<span class="number">2.2</span>.<span class="number">31</span>   run=httpd</span><br></pre></td></tr></table></figure>
+
+<p>修改image为2.2.32</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">spec:</span> </span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">httpd</span></span><br><span class="line">  <span class="attr">template:</span> </span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">httpd</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">httpd:2.2.32</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>再次查看deploy</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#先更新</span></span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl apply -f htppd.yaml </span></span><br><span class="line">deployment.apps/httpd configured</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl get deploy httpd -o wide</span></span><br><span class="line">NAME    READY   UP<span class="literal">-TO-DATE</span>   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR</span><br><span class="line">httpd   <span class="number">3</span>/<span class="number">3</span>     <span class="number">3</span>            <span class="number">3</span>           <span class="number">51</span>m   httpd        httpd:<span class="number">2.2</span>.<span class="number">32</span>   run=httpd</span><br></pre></td></tr></table></figure>
+
+<p>查看Deployment的详细信息</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl describe deploy httpd</span></span><br><span class="line">......</span><br><span class="line">Events:</span><br><span class="line">  <span class="built_in">Type</span>    Reason             Age    From                   Message</span><br><span class="line">  <span class="literal">----</span>    <span class="literal">------</span>             <span class="literal">----</span>   <span class="literal">----</span>                   <span class="literal">-------</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">52</span>m    deployment<span class="literal">-controller</span>  Scaled up replica <span class="built_in">set</span> httpd<span class="literal">-5f8664fc66</span> to <span class="number">3</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">8</span>m     deployment<span class="literal">-controller</span>  Scaled up replica <span class="built_in">set</span> httpd<span class="literal">-6998bd9ff5</span> to <span class="number">1</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">7</span>m25s  deployment<span class="literal">-controller</span>  Scaled down replica <span class="built_in">set</span> httpd<span class="literal">-5f8664fc66</span> to <span class="number">2</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">7</span>m25s  deployment<span class="literal">-controller</span>  Scaled up replica <span class="built_in">set</span> httpd<span class="literal">-6998bd9ff5</span> to <span class="number">2</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">7</span>m24s  deployment<span class="literal">-controller</span>  Scaled down replica <span class="built_in">set</span> httpd<span class="literal">-5f8664fc66</span> to <span class="number">1</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">7</span>m24s  deployment<span class="literal">-controller</span>  Scaled up replica <span class="built_in">set</span> httpd<span class="literal">-6998bd9ff5</span> to <span class="number">3</span></span><br><span class="line">  Normal  ScalingReplicaSet  <span class="number">7</span>m23s  deployment<span class="literal">-controller</span>  Scaled down replica <span class="built_in">set</span> httpd<span class="literal">-5f8664fc66</span> to</span><br></pre></td></tr></table></figure>
+
+<p>部署deploy</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl apply -f httpd1.yaml --record</span></span><br><span class="line">deployment.apps/httpd configured</span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl apply -f httpd2.yaml --record</span></span><br><span class="line">deployment.apps/httpd configured</span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl apply -f httpd3.yaml --record # --record的作用是将当前命令记录到revision中</span></span><br><span class="line">deployment.apps/httpd configured</span><br></pre></td></tr></table></figure>
+
+<p>查看deploy</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl  get deploy httpd -o wide</span></span><br><span class="line">NAME    READY   UP<span class="literal">-TO-DATE</span>   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR</span><br><span class="line">httpd   <span class="number">3</span>/<span class="number">3</span>     <span class="number">1</span>            <span class="number">3</span>           <span class="number">80</span>m   httpd        httpd:<span class="number">2.2</span>.<span class="number">18</span>   run=httpd</span><br></pre></td></tr></table></figure>
+
+<p>查看revision记录</p>
+<ul>
+<li>status 显示当前升级状态</li>
+<li>history 显示升级历史纪录</li>
+<li>undo 回滚到上一级版本(可以使用–to-revision回滚到指定版本)</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl rollout history deploy httpd</span></span><br><span class="line">deployment.apps/httpd </span><br><span class="line">REVISION  CHANGE<span class="literal">-CAUSE</span></span><br><span class="line"><span class="number">1</span>         &lt;none&gt; <span class="comment">#这里的 1 2 为none 是因为上面两次升级回退时没有添加 --record ,所以没有记录</span></span><br><span class="line"><span class="number">2</span>         &lt;none&gt;</span><br><span class="line"><span class="number">3</span>         kubectl apply <span class="literal">--filename</span>=httpd1.yaml <span class="literal">--record</span>=true</span><br><span class="line"><span class="number">4</span>         kubectl apply <span class="literal">--filename</span>=httpd2.yaml <span class="literal">--record</span>=true</span><br><span class="line"><span class="number">5</span>         kubectl apply <span class="literal">--filename</span>=httpd3.yaml <span class="literal">--record</span>=true</span><br></pre></td></tr></table></figure>
+
+<p>回滚到指定版本revision 1。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl rollout undo deploy httpd --to-revision=1</span></span><br><span class="line">deployment.apps/httpd rolled back</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">[<span class="type">root</span>@<span class="type">master</span> ~]<span class="comment"># kubectl  get deploy httpd -o wide</span></span><br><span class="line">NAME    READY   UP<span class="literal">-TO-DATE</span>   AVAILABLE   AGE    CONTAINERS   IMAGES         SELECTOR</span><br><span class="line">httpd   <span class="number">3</span>/<span class="number">3</span>     <span class="number">2</span>            <span class="number">3</span>           <span class="number">106</span>m   httpd        httpd:<span class="number">2.2</span>.<span class="number">31</span>   run=httpd</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Pod容器"><a href="#Pod容器" class="headerlink" title="Pod容器"></a>Pod容器</h1><p>pod结构</p>
+<p>每个pod中都可以包含一个或多个容器，这些容器可分为两类：</p>
+<p>​	用户程序所在的容器，数量可多可少</p>
+<p>​	pause容器，这是每个Pod都会有的一个根容器，它的作用有两个：</p>
+<ol>
+<li><p>可以以它为依据，评估整个Pod的健康状态</p>
+</li>
+<li><p>可以在根容器上设置ip地址，其他容器都共享根容器的ip，以实现Pod内部的网络通信</p>
+</li>
+</ol>
+<p>pod资源清单(yaml)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pod  #查询pod下的配置项</span><br><span class="line">kubectl explain pod.metadata #查询下面子配置</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Pod容器端口"><a href="#Pod容器端口" class="headerlink" title="Pod容器端口"></a>Pod容器端口</h4><p><img src="https://img-blog.csdnimg.cn/d3b97fb2983e455d9938e1fa911ee5c4.png" alt="k8s pod端口"></p>
+<p>每个pod都是有独立的ip 并不是像docker那样共享的主机ip</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/11/12/OpenStack%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2021-11-12 19:43:55
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                        #笔记
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/12/21/Docker%E5%AD%A6%E4%B9%A0/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#yaml%E8%AF%AD%E6%B3%95"><span class="toc-text">yaml语法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-text">资源管理方式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kubectl%E5%91%BD%E4%BB%A4"><span class="toc-text">kubectl命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#namespace"><span class="toc-text">namespace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pod"><span class="toc-text">Pod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Label"><span class="toc-text">Label</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Label-Selector-%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">Label Selector 标签选择器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Service"><span class="toc-text">Service</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E8%AE%BF%E9%97%AE%EF%BC%9A"><span class="toc-text">集群内部访问：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE%EF%BC%9A"><span class="toc-text">集群外部访问：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4service"><span class="toc-text">删除service</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kubernetes%E8%BF%90%E7%BB%B4"><span class="toc-text">kubernetes运维</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#node%E8%8A%82%E7%82%B9%E7%9A%84%E9%9A%94%E7%A6%BB%E4%B8%8E%E6%81%A2%E5%A4%8D%EF%BC%9A"><span class="toc-text">node节点的隔离与恢复：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pod%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9%E5%92%8C%E7%BC%A9%E6%94%BE%EF%BC%9A"><span class="toc-text">Pod动态扩容和缩放：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86pod%E8%B0%83%E5%BA%A6%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84node%E8%8A%82%E7%82%B9"><span class="toc-text">将pod调度到指定的node节点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%BB%9A%E5%8A%A8%E5%8D%87%E7%BA%A7"><span class="toc-text">应用滚动升级</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-text">滚动升级过程：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pod%E5%AE%B9%E5%99%A8"><span class="toc-text">Pod容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pod%E5%AE%B9%E5%99%A8%E7%AB%AF%E5%8F%A3"><span class="toc-text">Pod容器端口</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/rskil">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a href="/">Copyright © 2024 rskil</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+      
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Kubernetes%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0 + '&url=' + http%3A%2F%2Fexample.com%2F2021%2F11%2F12%2FKubernetes%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2021/11/12/Kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      OpenStack 学习笔记 
+      
+      
+      |
+    
+     rskil_blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">rskil</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">OpenStack 学习笔记</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2021-11-12 11:12:50
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                    #笔记
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <hr>
+<hr>
+<table>
+<thead>
+<tr>
+<th align="center">项目</th>
+<th align="left">服务</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Horizon</td>
+<td align="left">Dashboard</td>
+<td align="left">提供图形化的web前端控制台，用于管理OpenStack的资源和服务。</td>
+</tr>
+<tr>
+<td align="center">Nova</td>
+<td align="left">Compute</td>
+<td align="left">核心组件之一，负责云计算环境中虚拟机的管理。</td>
+</tr>
+<tr>
+<td align="center">Neutron</td>
+<td align="left">Networking</td>
+<td align="left">核心组件之一，提供云计算下的虚拟网络功能，实现了“网络即服务”的功能。</td>
+</tr>
+<tr>
+<td align="center">Swift</td>
+<td align="left">Object Storage</td>
+<td align="left">在大规模可扩展系统中通过内置冗余及高容错机制实现对象存储的系统，允许进行存储或者检索文件。</td>
+</tr>
+<tr>
+<td align="center">Cinder</td>
+<td align="left">Block Storage</td>
+<td align="left">提供块设备的创建，添加和卸载，并没有实现对块设备的管理和实际服务，而是为后端不同的存储结构提供了统一的接口。</td>
+</tr>
+<tr>
+<td align="center">Keystone</td>
+<td align="left">ldentity service</td>
+<td align="left">为整个的OpenStack提供了用户信息管理和安全认证的服务。</td>
+</tr>
+<tr>
+<td align="center">Glance</td>
+<td align="left">Image service</td>
+<td align="left">提供了虚拟机磁盘镜像的查询，注册和传输的服务。</td>
+</tr>
+<tr>
+<td align="center">Ceilometer</td>
+<td align="left">Telemetry</td>
+<td align="left">监控组件，收集监控数据，可以为计费和监控以及其它服务提供数据支撑。</td>
+</tr>
+<tr>
+<td align="center">Hear</td>
+<td align="left">Orchestration</td>
+<td align="left">部署编排服务，通过模板定义和描述云环境的架构，并且以自动化的方式进行部署云计算资源。</td>
+</tr>
+<tr>
+<td align="center">Trove</td>
+<td align="left">Database service</td>
+<td align="left">提供了数据库即服务的功能，支持关系型数据库和非关系型数据库。</td>
+</tr>
+<tr>
+<td align="center">Sahara</td>
+<td align="left">Data processing service</td>
+<td align="left">在OpenStack中提供了Hadoop集群创建的创建和管理功能。</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">details</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">summary</span>&gt;</span>name<span class="tag">&lt;/<span class="name">summary</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">pre</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">details</span>&gt;</span>   `</span><br></pre></td></tr></table></figure>
+
+<p>​    	</p>
+<p>OpenStack</p>
+<p>OpenStack数据库内信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| aodh               |</span><br><span class="line">| cinder             |</span><br><span class="line">| glance             |</span><br><span class="line">| gnocchi            |</span><br><span class="line">| heat               |</span><br><span class="line">| information_schema |</span><br><span class="line">| keystone           |</span><br><span class="line">| mysql              |</span><br><span class="line">| neutron            |  </span><br><span class="line">| nova               |</span><br><span class="line">| nova_api           |</span><br><span class="line">| nova_cell0         |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">13 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>先电 iaas OpenStack安装脚本在 ↓</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /usr/local/bin</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>过滤配置文件内的 <code>#</code> 号 <code>空格</code>  ↓</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat filename |  grep -v &#x27;^#&#x27; | grep -v &#x27;^$&#x27; &gt; newfile</span><br></pre></td></tr></table></figure>
+
+<p>环境变量配置文件： ↓</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ]# cat /etc/keystone/admin-openrc.sh</span><br><span class="line">export OS_PROJECT_DOMAIN_NAME=demo</span><br><span class="line">export OS_USER_DOMAIN_NAME=demo</span><br><span class="line">export OS_PROJECT_NAME=admin</span><br><span class="line">export OS_USERNAME=admin</span><br><span class="line">export OS_PASSWORD=000000</span><br><span class="line">export OS_AUTH_URL=http://controller:5000/v3</span><br><span class="line">export OS_IDENTITY_API_VERSION=3</span><br><span class="line">export OS_IMAGE_API_VERSION=2</span><br><span class="line">export OS_AUTH_TYPE=password</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="KeyStone为整个OpenStack提供认证服务"><a href="#KeyStone为整个OpenStack提供认证服务" class="headerlink" title="KeyStone为整个OpenStack提供认证服务"></a>KeyStone为整个OpenStack提供认证服务</h5><p>先电OpenStack KeyStone安装脚本 ：↓</p>
+<details> 
+    <summary>cat iaas-install-keystone.sh</summary> 
+    <pre>
+        <code>
+#!/bin/bash
+source /etc/xiandian/openrc.sh
+#keystone mysql
+mysql -uroot -p$DB_PASS -e "create database IF NOT EXISTS keystone ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY '$KEYSTONE_DBPASS' ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY '$KEYSTONE_DBPASS' ;"
+#install keystone
+yum install openstack-keystone httpd mod_wsgi -y
+#/etc/keystone/keystone.conf
+crudini --set /etc/keystone/keystone.conf database connection  mysql+pymysql://keystone:$KEYSTONE_DBPASS@$HOST_NAME/keystone
+crudini --set /etc/keystone/keystone.conf token provider  fernet
+ADMIN_TOKEN=$(openssl rand -hex 10)
+crudini --set /etc/keystone/keystone.conf DEFAULT admin_token $ADMIN_TOKEN
+su -s /bin/sh -c "keystone-manage db_sync" keystone
+keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
+sed -i "s/#ServerName www.example.com:80/ServerName $HOST_NAME/g" /etc/httpd/conf/httpd.conf
+ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/
+systemctl enable httpd.service
+systemctl restart httpd.service
+export OS_TOKEN=$ADMIN_TOKEN
+export OS_URL=http://$HOST_NAME:35357/v3
+export OS_IDENTITY_API_VERSION=3
+openstack service create --name keystone --description "OpenStack Identity" identity
+openstack endpoint create --region RegionOne identity public http://$HOST_NAME:5000/v3
+openstack endpoint create --region RegionOne identity internal http://$HOST_NAME:5000/v3
+openstack endpoint create --region RegionOne identity admin http://$HOST_NAME:35357/v3
+openstack domain create --description "Default Domain" $DOMAIN_NAME
+openstack project create --domain $DOMAIN_NAME --description "Admin Project" admin # 创建管理项目
+openstack user create --domain $DOMAIN_NAME --password $ADMIN_PASS admin # 创建管理用户
+openstack role create admin #创建管理角色
+openstack role add --project admin --user admin admin # 为管理项目和管理用户添加管理角色
+openstack project create --domain $DOMAIN_NAME --description "Service Project" service #创建服务项目
+openstack project create --domain $DOMAIN_NAME --description "Demo Project" demo #创建demo项目
+openstack user create --domain $DOMAIN_NAME --password $DEMO_PASS demo #创建demo用户
+openstack role create user #创建user角色
+openstack role add --project demo --user demo user # 给demo项目和用户添加角色
+unset OS_TOKEN OS_URL # 环境变量
+# 为admin用户写个脚本↓
+cat > /etc/keystone/admin-openrc.sh <<-EOF 
+export OS_PROJECT_DOMAIN_NAME=$DOMAIN_NAME
+export OS_USER_DOMAIN_NAME=$DOMAIN_NAME
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=$ADMIN_PASS
+export OS_AUTH_URL=http://$HOST_NAME:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+EOF
+# 为demo用户创建脚本↓
+cat > /etc/keystone/demo-openrc.sh <<-EOF
+export OS_PROJECT_DOMAIN_NAME=$DOMAIN_NAME
+export OS_USER_DOMAIN_NAME=$DOMAIN_NAME
+export OS_PROJECT_NAME=demo
+export OS_USERNAME=demo
+export OS_PASSWORD=$DEMO_PASS
+export OS_AUTH_URL=http://$HOST_NAME:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+EOF
+source /etc/keystone/admin-openrc.sh #加载脚本
+openstack token issue	#测试脚本
+        </code>
+    </pre>
+</details>    
+
+
+<h5 id="Glance镜像服务"><a href="#Glance镜像服务" class="headerlink" title="Glance镜像服务"></a>Glance镜像服务</h5><p>​	Glance是一个专门的来负责虚拟机镜像管理的模块。提供了虚拟镜像的查询，注册和传输的服务。支持多种镜像的存储机制：简单文件系统，Swift服务存储镜像机制。</p>
+<p>Glance有两个服务模块</p>
+<ol>
+<li><p>Glance-API:  (glance-api.conf)</p>
+<p>主要负责接受响应 镜像 管理命令的Restful请求，分析消息请求信息并分发其所带的命令（增删查更新等等）</p>
+</li>
+<li><p>Glance-Registry：(glance–registry.conf)</p>
+<p>主要负责接受响应 ‘镜像元数据‘ 命令的 Restful 请求。分析消息请求信息并分发其所带的命令(如获取元数据，更新元数据等)，进行数据库相关的增删改查工作。</p>
+</li>
+</ol>
+<p>支持的虚拟磁盘镜像 Raw ，qcow2 ，AMI&#x2F;AKI&#x2F;ARI ，OVF   ……<br>​	qcow2 具体加密，压缩，以及快照等raw格式不具有的功能，磁盘用多少就占多少，raw是划分多少就是多少</p>
+<p>先电OpenStack Glance上传安装脚本：↓</p>
+<details> 
+    <summary>cat iaas-install-glance.sh</summary> 
+    <pre>
+        <code>
+#!/bin/bash
+source  /etc/xiandian/openrc.sh
+source  /etc/keystone/admin-openrc.sh
+#glance mysql
+mysql -uroot -p$DB_PASS -e "create database IF NOT EXISTS glance ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY '$GLANCE_DBPASS' ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '$GLANCE_DBPASS' ;"
+#glance user role service endpoint
+openstack user create --domain $DOMAIN_NAME --password $GLANCE_PASS glance
+openstack role add --project service --user glance admin   # 添加admin角色到service项目内
+openstack service create --name glance --description "OpenStack Image" image  # 创建服务实体
+openstack endpoint create --region RegionOne image public http://$HOST_NAME:9292 # 创建服务的API
+openstack endpoint create --region RegionOne image internal http://$HOST_NAME:9292
+openstack endpoint create --region RegionOne image admin http://$HOST_NAME:9292
+#glance install
+yum install -y openstack-glance
+#/etc/glance/glance-api.conf
+crudini --set /etc/glance/glance-api.conf database connection  mysql+pymysql://glance:$GLANCE_DBPASS@$HOST_NAME/glance
+crudini --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://$HOST_NAME:5000
+crudini --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://$HOST_NAME:5000
+crudini --set /etc/glance/glance-api.conf keystone_authtoken memcached_servers  $HOST_NAME:11211
+crudini --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
+crudini --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name $DOMAIN_NAME
+crudini --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name $DOMAIN_NAME
+crudini --set /etc/glance/glance-api.conf keystone_authtoken project_name service
+crudini --set /etc/glance/glance-api.conf keystone_authtoken username glance
+crudini --set /etc/glance/glance-api.conf keystone_authtoken password $GLANCE_PASS
+crudini --set /etc/glance/glance-api.conf paste_deploy flavor keystone
+crudini --set /etc/glance/glance-api.conf glance_store stores file,http
+crudini --set /etc/glance/glance-api.conf glance_store default_store  file
+crudini --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir /var/lib/glance/images/ # 镜像存储的路径
+#/etc/glance/glance-registry.conf
+crudini --set /etc/glance/glance-registry.conf database connection  mysql+pymysql://glance:$GLANCE_DBPASS@$HOST_NAME/glance
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://$HOST_NAME:5000
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://$HOST_NAME:5000
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken memcached_servers $HOST_NAME:11211
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name $DOMAIN_NAME
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name $DOMAIN_NAME
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken username glance
+crudini --set /etc/glance/glance-registry.conf keystone_authtoken password $GLANCE_PASS
+crudini --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
+#su glance mysql
+su -s /bin/sh -c "glance-manage db_sync" glance # 为镜像服务数据库添加数据
+#start glance service # 设置开机自启 启动两个服务 
+systemctl enable openstack-glance-api.service openstack-glance-registry.service
+systemctl start openstack-glance-api.service openstack-glance-registry.service
+        </code>
+    </pre>
+</details>    
+
+<p>本地生成镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">glance image-create --name &quot;CentOS7.5&quot; --disk-format qcow2 --container-format bare --progress &lt; /opt/iaas/images/CentOS_7.5_x86_64_XD.qcow2</span><br><span class="line"></span><br><span class="line">glance image-create # 创建镜像</span><br><span class="line">           --name   # 镜像名字</span><br><span class="line">           --disk-format # 磁盘格式</span><br><span class="line">           --container-format # 容器格式</span><br><span class="line">           --progress  # 进度条</span><br><span class="line">           </span><br><span class="line">[root@controller ~]# openstack help image create	  # 查询使用openstack创建镜像命令相关参数</span><br><span class="line">[root@controller ~]# openstack image create  test  --disk-format qcow2 --container-format bare &lt; cirros-0.3.4-x86_64-disk.img</span><br><span class="line">[root@controller ~]# openstack image list             # 查看所有镜像</span><br></pre></td></tr></table></figure>
+
+<p>记不住参数可以用 <code> help</code> 查</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# glance --help |grep image     # 查询镜像方面相关命令</span><br><span class="line">[root@controller ~]# glance help image-create      # 查询镜像创建相关参数</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/2f42eda03b394a0eb571af4a4ac069c1.png" alt="glance --help"></p>
+<p>glance镜像查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# glance image-list</span><br><span class="line">You must provide a username via either --os-username or env[OS_USERNAME] </span><br><span class="line">[root@controller ~]# source /etc/keystone/admin-openrc.sh  # 加载用户身份变量</span><br><span class="line">[root@controller ~]# glance image-list</span><br><span class="line">+--------------------------------------+-----------+</span><br><span class="line">| ID                                   | Name      |</span><br><span class="line">+--------------------------------------+-----------+</span><br><span class="line">| 72cd066e-ee2e-4b9a-8c83-f811a97a79b4 | CentOS7.5 |</span><br><span class="line">+--------------------------------------+-----------+</span><br></pre></td></tr></table></figure>
+<p>修改镜像名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@controller images]# openstack image list        # OpenStack命令查看镜像</span><br><span class="line">[root@controller images]# glance image-list           # glance命令查看镜像</span><br><span class="line">[root@controller images]# openstack help image        # 查看镜像相关操作命令</span><br><span class="line">[root@controller images]# openstack help image set	  # 查看镜像修改相关参数</span><br></pre></td></tr></table></figure>
+
+<p>镜像tag</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@controller images]# openstack image show a2282ef2-eea9-420a-b216-95fc7eee1344 | grep tag   # 查看镜像tag</span><br><span class="line">| tags             |                                                      |</span><br><span class="line">[root@controller images]# openstack image set --tag lastone a2282ef2-eea9-420a-b216-95fc7eee1344 # 修改镜像tag</span><br><span class="line">[root@controller images]# openstack image show a2282ef2-eea9-420a-b216-95fc7eee1344 | grep tag   # 查看镜像tag</span><br><span class="line">| tags             | lastone                                              |</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="Nova"><a href="#Nova" class="headerlink" title="Nova"></a>Nova</h5><p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=40&spm_id_from=pageDriver">Nova简介</a> 	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=41&spm_id_from=pageDriver">Nova安装</a> 	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=42">控制节点安装配置Nova</a>	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=43">计算节点安装配置Nova</a></p>
+<p>​	nova是OpenStack中的计算模块，是三大核心组件中最重要的一个模块，负责云计算环境中虚拟机的管理，Python语言开发</p>
+<p>​	 在nova内部，有许多小型组件为nova内部进程提供各种服务：1. 虚拟机管理 2. 虚拟机VNC和日志的管理 3. 数据库管理  4. 安全管理</p>
+<p>​	<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/VNC/2906305?fr=aladdin">NVC</a>(Virtual Network Console) : 是虚拟网络计算机的缩写，用于实现主机的远程控制，控制能力强大，高效实用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# nova service-list</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/0634ea3be1064adb82d7deb80a7bfb55.png" alt="nova service-list"></p>
+<p>nova创建云主机类型</p>
+<p> <img src="https://img-blog.csdnimg.cn/196363ecda4547de8b094ff0eb6e99ca.png" alt="nova create创建"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# nova --help | grep create    # 查看nova创建相关命令</span><br><span class="line">[root@controller ~]# nova help flavor-create      # 查看创建云主机类型所需参数</span><br></pre></td></tr></table></figure>
+
+<p>尝试创建一个云主机类型</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# nova help flavor-create</span><br><span class="line">usage: nova flavor-create [--ephemeral &lt;ephemeral&gt;] [--swap &lt;swap&gt;]</span><br><span class="line">                          [--rxtx-factor &lt;factor&gt;] [--is-public &lt;is-public&gt;]</span><br><span class="line">                          [--description &lt;description&gt;]</span><br><span class="line">                          &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt;</span><br><span class="line"></span><br><span class="line">Create a new flavor.</span><br><span class="line"></span><br><span class="line">Positional arguments:</span><br><span class="line">  &lt;name&gt;                       Unique name of the new flavor.</span><br><span class="line">  &lt;id&gt;                         Unique ID of the new flavor. Specifying &#x27;auto&#x27;</span><br><span class="line">                               will generated a UUID for the ID.</span><br><span class="line">  &lt;ram&gt;                        Memory size in MB.</span><br><span class="line">  &lt;disk&gt;                       Disk size in GB.</span><br><span class="line">  &lt;vcpus&gt;                      Number of vcpus</span><br><span class="line">[root@controller ~]# nova flavor-create test1 auto 1024 20 1  # 创建云主机类型 名字 id 内存 磁盘 cpu核心数</span><br><span class="line">[root@controller ~]# nova flavor-list # 查看所有类型</span><br><span class="line"></span><br><span class="line">openstack 命令 ↓</span><br><span class="line">[root@controller ~]# openstack flavor create Fmin --id 1 --ram 1024 --disk 10 --vcpus 1 # openstack命令创建云主机类型</span><br><span class="line">[root@controller ~]# openstack flavor list # 查看所有云主机类型</span><br></pre></td></tr></table></figure>
+
+<p>创建云主机</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nova相关命令创建</span><br><span class="line">[root@controller ~]# nova help boot # 查看boot参数</span><br><span class="line">[root@controller ~]# nova boot name --flavor id/name --image id/name --nic net-id=id/name  # 创建云主机</span><br><span class="line">						    new云主机name    云主机类型         云主机镜像            云主机网络</span><br><span class="line">[root@controller ~]# nova list # 查看所有云主机</span><br><span class="line"></span><br><span class="line">openstack相关命令创建</span><br><span class="line">[root@controller ~]# openstack help server create # 查看创建相关参数</span><br><span class="line">[root@controller ~]# openstack server create name --flavor id/name --image id/name --nic net-id=id #创建云主机</span><br><span class="line">										   云主机name     云主机类型         云主机镜像          云主机网络</span><br><span class="line">[root@controller ~]# openstack server list # 查看所有云主机</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Neutron-网络"><a href="#Neutron-网络" class="headerlink" title="Neutron 网络"></a>Neutron 网络</h5><p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=52">Neutron简介</a>	 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=53">Neutron安装</a>	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=54">控制节点安装Neutron</a>	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=55">网络节点安装Neutron</a> 	<a href="">计算节点安装Neutron</a></p>
+<p>​	Openstack的设计理念是把所有的组件当做服务来注册的, Neutron作为OpenStack的核心项目之一,提供云计算环境下的虚拟网络功能,实现了“网络即服务”的功能。Neutron将网络、子网、端口和路由器抽象化,之后启动的虚拟主机就可以连接到这个虚拟网络上。</p>
+<p>​	nova-network 主要功能有</p>
+<ul>
+<li><p>IP地址分配  </p>
+<p>​	为虚拟机分配私有(固定) 和 浮动IP地址</p>
+</li>
+<li><p>网络模型与管理</p>
+<p>​	提供了<code>虚拟网络</code>似虚拟主机之间以及与外部网络通信。网络模型分为三种(扁平化，带DHCP功能的扁平网络，VLAN网络)，三种模型可以共存在一个云系统中，但是在一个计算节点上只能配备一种模型。</p>
+<p>​	扁平网络( Flat Network)在创建虚拟主机时,nova- network会从指定子网中取一个空闲IP并将它写入此虚拟主机的配置文件。</p>
+<p>​	带DHCP功能的扁平网络( Flat DHCP Network)顾名思义,此种模式相对于扁平网络加入了DHCP功能。</p>
+<p>​	VLAN网络( VLAN Network)这是nova- network的默认模型。针对每个项目( Project,如今 Openstack把项目改称租户- Tenant),都会对应一个van。每个项目里的私有P地址只能在本项目的van里访问。</p>
+</li>
+<li><p>安全控制</p>
+<p>主要通过ebtables和iptables来实现</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# neutron --help</span><br></pre></td></tr></table></figure>
+
+<p>先电OpenStack Neutron脚本： ↓</p>
+<details> 
+    <summary> cat iaas-install-neutron-controller.sh </summary> 
+    <pre>
+        <code>
+#!/bin/bash
+source /etc/xiandian/openrc.sh
+source /etc/keystone/admin-openrc.sh
+#neutron mysql
+mysql -uroot -p$DB_PASS -e "create database IF NOT EXISTS neutron ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS' ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '$NEUTRON_DBPASS' ;"
+#neutron  user role service endpoint
+openstack user create --domain $DOMAIN_NAME --password $NEUTRON_PASS neutron
+openstack role add --project service --user neutron admin
+openstack service create --name neutron --description "OpenStack Networking" network
+openstack endpoint create --region RegionOne network public http://$HOST_NAME:9696
+openstack endpoint create --region RegionOne  network internal http://$HOST_NAME:9696
+openstack endpoint create --region RegionOne  network admin http://$HOST_NAME:9696
+#neutron install
+yum install openstack-neutron openstack-neutron-ml2 openstack-neutron-linuxbridge ebtables -y
+if [[ `ip a |grep -w $INTERFACE_IP |grep -w $INTERFACE_NAME` = '' ]];then
+cat > /etc/sysconfig/network-scripts/ifcfg-$INTERFACE_NAME <<EOF
+DEVICE=$INTERFACE_NAME
+TYPE=Ethernet
+BOOTPROTO=none
+ONBOOT=yes
+EOF
+systemctl restart network
+fi
+#/etc/neutron/neutron.conf
+crudini --set /etc/neutron/neutron.conf DEFAULT core_plugin  ml2
+crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins  router
+crudini --set /etc/neutron/neutron.conf DEFAULT allow_overlapping_ips  true
+crudini --set /etc/neutron/neutron.conf DEFAULT transport_url  rabbit://openstack:$NEUTRON_DBPASS@$HOST_NAME
+crudini --set /etc/neutron/neutron.conf DEFAULT auth_strategy  keystone
+crudini --set /etc/neutron/neutron.conf DEFAULT notify_nova_on_port_status_changes  true
+crudini --set /etc/neutron/neutron.conf DEFAULT notify_nova_on_port_data_changes  true
+crudini --set /etc/neutron/neutron.conf database connection mysql+pymysql://neutron:$NEUTRON_DBPASS@$HOST_NAME/neutron
+crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_uri  http://$HOST_NAME:5000
+crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_url  http://$HOST_NAME:35357
+crudini --set /etc/neutron/neutron.conf keystone_authtoken memcached_servers  $HOST_NAME:11211
+crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_type  password
+crudini --set /etc/neutron/neutron.conf keystone_authtoken project_domain_name  $DOMAIN_NAME
+crudini --set /etc/neutron/neutron.conf keystone_authtoken user_domain_name  $DOMAIN_NAME
+crudini --set /etc/neutron/neutron.conf keystone_authtoken project_name  service
+crudini --set /etc/neutron/neutron.conf keystone_authtoken username  neutron
+crudini --set /etc/neutron/neutron.conf keystone_authtoken password  $NEUTRON_PASS
+crudini --set /etc/neutron/neutron.conf nova auth_url  http://$HOST_NAME:35357
+crudini --set /etc/neutron/neutron.conf nova auth_type  password
+crudini --set /etc/neutron/neutron.conf nova project_domain_name  $DOMAIN_NAME
+crudini --set /etc/neutron/neutron.conf nova user_domain_name  $DOMAIN_NAME
+crudini --set /etc/neutron/neutron.conf nova region_name  RegionOne
+crudini --set /etc/neutron/neutron.conf nova project_name  service
+crudini --set /etc/neutron/neutron.conf nova username  nova
+crudini --set /etc/neutron/neutron.conf nova password  $NOVA_PASS
+crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path  /var/lib/neutron/tmp
+#/etc/neutron/plugins/ml2/ml2_conf.ini
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 type_drivers  flat,vlan,vxlan
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 tenant_network_types  vxlan
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 mechanism_drivers  linuxbridge,l2population
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 extension_drivers  port_security
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2_type_flat flat_networks  $Physical_NAME
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2_type_vlan network_vlan_ranges $Physical_NAME:$minvlan:$maxvlan
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2_type_vxlan vni_ranges  $minvlan:$maxvlan
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini securitygroup enable_ipset  true
+#/etc/neutron/plugins/ml2/linuxbridge_agent.ini
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings  $Physical_NAME:$INTERFACE_NAME
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan  true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip  $INTERFACE_IP
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan l2_population  true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup enable_security_group  true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup firewall_driver  neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+#/etc/neutron/l3_agent.ini
+crudini --set /etc/neutron/l3_agent.ini DEFAULT interface_driver  linuxbridge
+#/etc/neutron/dhcp_agent.ini
+crudini --set /etc/neutron/dhcp_agent.ini DEFAULT interface_driver  linuxbridge
+crudini --set /etc/neutron/dhcp_agent.ini DEFAULT dhcp_driver  neutron.agent.linux.dhcp.Dnsmasq
+crudini --set /etc/neutron/dhcp_agent.ini DEFAULT enable_isolated_metadata  true
+#/etc/neutron/metadata_agent.ini
+crudini --set /etc/neutron/metadata_agent.ini DEFAULT nova_metadata_host  $HOST_NAME
+crudini --set /etc/neutron/metadata_agent.ini DEFAULT metadata_proxy_shared_secret  $METADATA_SECRET
+#/etc/nova/nova.conf
+crudini --set /etc/nova/nova.conf neutron url  http://$HOST_NAME:9696
+crudini --set /etc/nova/nova.conf neutron auth_url  http://$HOST_NAME:35357
+crudini --set /etc/nova/nova.conf neutron auth_type  password
+crudini --set /etc/nova/nova.conf neutron project_domain_name  $DOMAIN_NAME
+crudini --set /etc/nova/nova.conf neutron user_domain_name  $DOMAIN_NAME
+crudini --set /etc/nova/nova.conf neutron region_name  RegionOne
+crudini --set /etc/nova/nova.conf neutron project_name  service
+crudini --set /etc/nova/nova.conf neutron username  neutron
+crudini --set /etc/nova/nova.conf neutron password  $NEUTRON_PASS
+crudini --set /etc/nova/nova.conf neutron service_metadata_proxy  true
+crudini --set /etc/nova/nova.conf neutron metadata_proxy_shared_secret  $METADATA_SECRET
+# ln -s 软连接  su -s 加载配置文件
+ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini
+su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf  --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
+systemctl restart openstack-nova-api.service
+# 设置开机自启 启动服务 ↓
+systemctl enable neutron-server.service neutron-linuxbridge-agent.service neutron-dhcp-agent.service neutron-metadata-agent.service neutron-l3-agent.service
+systemctl start neutron-server.service neutron-linuxbridge-agent.service neutron-dhcp-agent.service neutron-metadata-agent.service neutron-l3-agent.service
+        </code>
+    </pre>
+</details>
+
+<details> 
+    <summary>cat iaas-install-neutron-compute.sh</summary> 
+    <pre>
+        <code>
+#!/bin/bash
+source /etc/xiandian/openrc.sh
+#neutron install
+yum install openstack-neutron-linuxbridge ebtables ipset net-tools -y
+if [[ `ip a |grep -w $INTERFACE_IP |grep -w $INTERFACE_NAME` = '' ]];then
+cat > /etc/sysconfig/network-scripts/ifcfg-$INTERFACE_NAME <<EOF
+DEVICE=$INTERFACE_NAME
+TYPE=Ethernet
+BOOTPROTO=none
+ONBOOT=yes
+EOF
+systemctl restart network
+fi
+#/etc/neutron/neutron.conf
+crudini --set /etc/neutron/neutron.conf DEFAULT transport_url  rabbit://openstack:$NEUTRON_DBPASS@$HOST_NAME
+crudini --set /etc/neutron/neutron.conf DEFAULT auth_strategy  keystone
+crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_uri  http://$HOST_NAME:5000
+crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_url  http://$HOST_NAME:35357
+crudini --set /etc/neutron/neutron.conf keystone_authtoken memcached_servers  $HOST_NAME:11211
+crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_type  password
+crudini --set /etc/neutron/neutron.conf keystone_authtoken project_domain_name  $DOMAIN_NAME
+crudini --set /etc/neutron/neutron.conf keystone_authtoken user_domain_name  $DOMAIN_NAME
+crudini --set /etc/neutron/neutron.conf keystone_authtoken project_name  service
+crudini --set /etc/neutron/neutron.conf keystone_authtoken username  neutron
+crudini --set /etc/neutron/neutron.conf keystone_authtoken password  $NEUTRON_PASS
+crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path  /var/lib/neutron/tmp
+#/etc/neutron/plugins/ml2/linuxbridge_agent.ini
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings  provider:$INTERFACE_NAME
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan  true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $INTERFACE_IP
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan l2_population  true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup enable_security_group  true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup firewall_driver  neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+#/etc/nova/nova.conf
+crudini --set /etc/nova/nova.conf neutron url  http://$HOST_NAME:9696
+crudini --set /etc/nova/nova.conf neutron auth_url  http://$HOST_NAME:35357
+crudini --set /etc/nova/nova.conf neutron auth_type  password
+crudini --set /etc/nova/nova.conf neutron project_domain_name  $DOMAIN_NAME
+crudini --set /etc/nova/nova.conf neutron user_domain_name  $DOMAIN_NAME
+crudini --set /etc/nova/nova.conf neutron region_name  RegionOne
+crudini --set /etc/nova/nova.conf neutron project_name  service
+crudini --set /etc/nova/nova.conf neutron username  neutron
+crudini --set /etc/nova/nova.conf neutron password  $NEUTRON_PASS
+# 重启 openstack-nova-compute.service服务 启动并设置开机自启neutron-linuxbridge-agent.service
+systemctl restart openstack-nova-compute.service
+systemctl start neutron-linuxbridge-agent.service
+systemctl enable neutron-linuxbridge-agent.service    	
+        </code>
+    </pre>
+</details>
+网络创建
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack network create 1111  --provider-network-type flat --provider-physical-network provider --external        # 创建网络</span><br><span class="line">[root@controller ~]# openstack network list  # 查看网络</span><br><span class="line">[root@controller ~]# openstack network delete ID # 删除网络</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/2a964933feb6494a8ceba839481bf75d.png" alt="OpenStack Neutron create "></p>
+<h5 id="Cinder块存储服务"><a href="#Cinder块存储服务" class="headerlink" title="Cinder块存储服务"></a>Cinder块存储服务</h5><p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=64">Cinder简介</a>	</p>
+<p>​	API service : 负责接受和处理Rest请求,并将请求放入 RabbitMQ队。<br>​	Scheduler service : 处理任务队列的任务,并根据预定策略选择合适的 VolumeService节点来执行任务。<br>​	Volume service : 该服务运行在存储节点上,管理存储空间。每个存储节点都有一个 Volume service,若干个这样的存储节点联合起来可以构成一个存储资源。</p>
+<p>先电OpenStack Cinder安装脚本 ↓</p>
+<details> 
+    <summary>cat iaas-install-cinder-controller.sh</summary> 
+    <pre>
+        <code>
+#!/bin/bash
+yum install openstack-cinder -y
+source /etc/xiandian/openrc.sh
+source /etc/keystone/admin-openrc.sh
+mysql -uroot -p$DB_PASS -e "create database IF NOT EXISTS cinder ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'localhost' IDENTIFIED BY '$CINDER_DBPASS' ;"
+mysql -uroot -p$DB_PASS -e "GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY '$CINDER_DBPASS' ;"
+openstack user create --domain $DOMAIN_NAME --password $CINDER_PASS cinder
+openstack role add --project service --user cinder admin
+openstack service create --name cinder  --description "OpenStack Block Store" volume
+openstack service create --name cinderv2  --description "OpenStack Block Store" volumev2
+openstack service create --name cinderv3  --description "OpenStack Block Store" volumev3
+openstack endpoint create --region RegionOne volume public http://$HOST_NAME:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume internal http://$HOST_NAME:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume admin http://$HOST_NAME:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 public http://$HOST_NAME:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 internal http://$HOST_NAME:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 admin http://$HOST_NAME:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev3 public http://$HOST_NAME:8776/v3/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev3 internal http://$HOST_NAME:8776/v3/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev3 admin http://$HOST_NAME:8776/v3/%\(tenant_id\)s
+crudini --set /etc/cinder/cinder.conf database connection mysql+pymysql://cinder:$CINDER_DBPASS@$HOST_NAME/cinder
+crudini --set /etc/cinder/cinder.conf DEFAULT rpc_backend rabbit
+crudini --set /etc/cinder/cinder.conf oslo_messaging_rabbit rabbit_host $HOST_NAME
+crudini --set /etc/cinder/cinder.conf oslo_messaging_rabbit rabbit_userid $RABBIT_USER
+crudini --set /etc/cinder/cinder.conf oslo_messaging_rabbit rabbit_password  $RABBIT_PASS
+crudini --set /etc/cinder/cinder.conf DEFAULT auth_strategy keystone
+crudini --set /etc/cinder/cinder.conf keystone_authtoken auth_uri  http://$HOST_NAME:5000
+crudini --set /etc/cinder/cinder.conf keystone_authtoken auth_url  http://$HOST_NAME:35357
+crudini --set /etc/cinder/cinder.conf keystone_authtoken memcached_servers  $HOST_NAME:11211
+crudini --set /etc/cinder/cinder.conf keystone_authtoken auth_type  password
+crudini --set /etc/cinder/cinder.conf keystone_authtoken project_domain_name  $DOMAIN_NAME
+crudini --set /etc/cinder/cinder.conf keystone_authtoken user_domain_name $DOMAIN_NAME
+crudini --set /etc/cinder/cinder.conf keystone_authtoken project_name  service
+crudini --set /etc/cinder/cinder.conf keystone_authtoken username  cinder
+crudini --set /etc/cinder/cinder.conf keystone_authtoken password  $CINDER_PASS
+crudini --set /etc/cinder/cinder.conf DEFAULT my_ip $HOST_IP
+crudini --set /etc/cinder/cinder.conf oslo_concurrency lock_path /var/lib/cinder/tmp
+su -s /bin/sh -c "cinder-manage db sync" cinder
+crudini --set /etc/nova/nova.conf cinder os_region_name  RegionOne
+# 重启 并设置开机自启服务 ↓
+systemctl restart openstack-nova-api.service
+systemctl enable openstack-cinder-api.service openstack-cinder-scheduler.service    	
+        </code>
+    </pre>
+</details>
+
+<details> 
+    <summary>cat iaas-install-cinder-compute.sh</summary> 
+    <pre>
+        <code>
+#!/bin/bash
+source /etc/xiandian/openrc.sh
+yum install lvm2 device-mapper-persistent-data openstack-cinder targetcli python-keystone -y
+systemctl enable lvm2-lvmetad.service
+systemctl restart lvm2-lvmetad.service
+pvcreate -f /dev/$BLOCK_DISK
+vgcreate cinder-volumes /dev/$BLOCK_DISK
+crudini --set /etc/cinder/cinder.conf database connection mysql+pymysql://cinder:$CINDER_DBPASS@$HOST_NAME/cinder
+crudini --set /etc/cinder/cinder.conf DEFAULT transport_url rabbit://$RABBIT_USER:$RABBIT_PASS@$HOST_NAME
+crudini --set /etc/cinder/cinder.conf DEFAULT auth_strategy keystone
+crudini --set /etc/cinder/cinder.conf DEFAULT enabled_backends  lvm
+crudini --set /etc/cinder/cinder.conf keystone_authtoken auth_uri  http://$HOST_NAME:5000
+crudini --set /etc/cinder/cinder.conf keystone_authtoken auth_url  http://$HOST_NAME:35357
+crudini --set /etc/cinder/cinder.conf keystone_authtoken memcached_servers  $HOST_NAME:11211
+crudini --set /etc/cinder/cinder.conf keystone_authtoken auth_type  password
+crudini --set /etc/cinder/cinder.conf keystone_authtoken project_domain_name  $DOMAIN_NAME
+crudini --set /etc/cinder/cinder.conf keystone_authtoken user_domain_name $DOMAIN_NAME
+crudini --set /etc/cinder/cinder.conf keystone_authtoken project_name  service
+crudini --set /etc/cinder/cinder.conf keystone_authtoken username  cinder
+crudini --set /etc/cinder/cinder.conf keystone_authtoken password  $CINDER_PASS
+crudini --set /etc/cinder/cinder.conf DEFAULT my_ip $HOST_IP_NODE
+crudini --set /etc/cinder/cinder.conf lvm volume_driver cinder.volume.drivers.lvm.LVMVolumeDriver
+crudini --set /etc/cinder/cinder.conf lvm volume_group cinder-volumes
+crudini --set /etc/cinder/cinder.conf lvm iscsi_protocol iscsi
+crudini --set /etc/cinder/cinder.conf lvm iscsi_helper lioadm
+crudini --set /etc/cinder/cinder.conf DEFAULT glance_api_servers  http://$HOST_NAME:9292
+crudini --set /etc/cinder/cinder.conf oslo_concurrency lock_path /var/lib/cinder/tmp
+# 设置开机自启 并 重启服务
+systemctl enable openstack-cinder-volume.service target.service
+systemctl restart openstack-cinder-volume.service target.service
+        </code>
+    </pre>
+</details>
+创建卷类型
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cinder --help | grep create   # 查看创建相关命令</span><br><span class="line">[root@controller ~]# cinder help type-create       # 查看创建卷类型相关参数</span><br><span class="line">[root@controller ~]# cinder type-create test --description &quot;the is test&quot;</span><br><span class="line">									  卷类型名字                描述</span><br><span class="line">[root@controller ~]# cinder type-list		       # 查看所有卷类型 </span><br><span class="line">[root@controller ~]# cinder type-show id/name      # 查看详情</span><br><span class="line">[root@controller ~]# cinder type-delete id/name    # 删除卷类型，前提是卷类型未在使用</span><br></pre></td></tr></table></figure>
+
+<p>创建卷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cinder list                  # 查看所有卷</span><br><span class="line">[root@controller ~]# cinder help create			  # 查看创建相关命令</span><br><span class="line">[root@controller ~]# cinder create  --name test --volume-type llll 2 # 创建卷</span><br><span class="line">										  卷名称            卷类型   卷大小</span><br><span class="line">[root@controller ~]# cinder show id/name          # 查看卷详情</span><br><span class="line">[root@controller ~]# cinder delete id/name        # 删除卷</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+<h5 id="Swift对象存储服务"><a href="#Swift对象存储服务" class="headerlink" title="Swift对象存储服务"></a>Swift对象存储服务</h5><p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=58">Swift简介</a>	</p>
+<p>​	Swift采用层次数据模型，共设三层逻辑结构：Account 、Container、Object (账户&#x2F;容器&#x2F;对象) 每层节点数均没有限制，可以任意扩展。账户即租户用户。Swift采用完全对称、面向资源的分布式系统架构设计,所有组件都可扩展,避免因单点失效而扩散并影响整个系统运转;通信方式采用非阻塞式1O模式,提高了系统吞吐和响应能力。</p>
+<h6 id="Swift各组件："><a href="#Swift各组件：" class="headerlink" title="Swift各组件："></a>Swift各组件：</h6><p>​	代理服务( Proxy Server) :<br>​		对外提供对象服务AP,会根据环的信息来查找服务地址并转发用户请求至相应的账户、容器或者对象服务;由于釆用无状态的REST请求协议,可以进行横向扩展来均衡负载<br>​	认证服务( Authentication Server) :<br>​		验证访问用户的身份信息,并获得一个对象访问令牌( Token),在一定的时间内会一直有效验证访问令牌的有效性并缓存下来直至过期时间。<br>​		缓存服务( Cache server) ：缓存的内容包括对象服务令牌,账户和容器的存在信息,但不会缓存对象本身的数据;缓存服务可采用 Memcached集群,Swt会使用一致性散列算法来分配缓存地址。<br>​		账户服务( Account server) : 提供账户元数据和统计信息,并维护所含容器列表的服务,每个账户的信息被存储在一个 Sqlite数据库中。<br>​		容器服务( Container server) : 提供容器元数据和统计信息,并维护所含对象列表的服务,每个容器的信息也存储在一个 Sqlite数据库中。<br>​		对象服务( Object Server) : 提供对象元数据和内容服务,每个对象的内容会以文件的形式存储在文件系统中,元数据会作为文件属性来存储,建议采用支持扩展属性的XFS文件系统<br>​		复制服务( Replicator) : 会检测本地分区副本和远程副本是否一致,具体是通过对比散列文件和高级水印来完成,发现不一致时会采用推式(Push)更新远程副本,例如对象复制服务会使用远程文件拷贝工具 rsync来同步.另外一个任务是确保被标记删除的对象从文件系统中移除。<br>​		更新服务( Updater) : 当对象由于高负载的原因而无法立即更新时,任务将会被序列化到在本地文件系统中进行排队,以便服务恢复后进行异步更新;例如成功创建对象后容器服务器没有及时更新对象列表,这个时候容器的更新操作就会进入排队中,更新服务会在系统恢复正常后扫描队列并进行相应的更新处理<br>​		审计服务( Auditor) : 检査对象,容器和账户的完整性,如果发现比特级的错误,文件将被隔离并复制其他的副本以覆盖本地损坏的副本;其他类型的错误会被记录到日志中<br>​		账户清理服务( Account Reaper) : 移除被标记为删除的账户,删除其所包含的所有容器和对象。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# swift --help                # 帮助文档</span><br></pre></td></tr></table></figure>
+
+<p>创建容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# swift post examcontainer    # 创建examcontainer容器</span><br><span class="line">[root@controller ~]# swift list					 # Swift命令查看容器</span><br><span class="line">examcontainer</span><br><span class="line">[root@controller ~]# openstack container list	 # openstack命令查看</span><br><span class="line">+---------------+</span><br><span class="line">| Name          |</span><br><span class="line">+---------------+</span><br><span class="line">| examcontainer |</span><br><span class="line">+---------------+</span><br><span class="line">[root@controller ~]# swift stat examcontainer    # 查看容器状态</span><br></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# swift capabilities         # 查看</span><br></pre></td></tr></table></figure>
+
+<p>上传一个文件到容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# swift help upload 								# 查询上传相关参数</span><br><span class="line">[root@controller ~]# swift upload examcontainer /root/test.txt		# 上传一个文件到容器</span><br><span class="line">root/test.txt</span><br><span class="line">[root@controller ~]# swift list examcontainer						# 查看容器内文件</span><br><span class="line">root/test.txt</span><br><span class="line">[root@controller ~]# swift list						# 查看所有容器</span><br><span class="line">examcontainer</span><br><span class="line">test3</span><br><span class="line">[root@controller ~]# swift delete test3				# 删除容器</span><br><span class="line">test3</span><br><span class="line">[root@controller ~]# swift delete examcontainer		# 删除容器内有文件的容器</span><br><span class="line">root/test.txt</span><br><span class="line">root/test111.txt</span><br><span class="line">examcontainer</span><br><span class="line"></span><br><span class="line">[root@controller ~]# openstack --help | grep container				# 查看容器相关操作</span><br><span class="line">[root@controller ~]# openstack container create test1 test2 test3	# openstack命令创建多个容器</span><br><span class="line">[root@controller ~]# openstack container list 						# 查看所有容器</span><br><span class="line">[root@controller ~]# openstack object create test1 text.txt			# 给容器上传文件</span><br><span class="line">[root@controller ~]# openstack object list test1					# 查看容器内内容</span><br><span class="line">[root@controller ~]# openstack container delete -r test1 test2      # 强制删除多个，容器内有文件的话得强制删除</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h5 id="Heat编排服务"><a href="#Heat编排服务" class="headerlink" title="Heat编排服务"></a>Heat编排服务</h5><p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jq4y1M7GC?p=69">Heat简介</a> </p>
+<p>​	Heat是OpenStack的部署编排服务,是一套业务流程平台,旨在帮助用户更轻松地配置以 Open Stack为基础的云体系提供了一种通过模板定义的协同部署方式,通过模板驱动的引擎,允许应用开发人员使用提供的模板语言描述云环境的架构,并且以自动化的方式进行部署云计算资源Heat能够启动应用、创建虚拟机并自动处理整个流程</p>
+<h6 id="Heat概念："><a href="#Heat概念：" class="headerlink" title="Heat概念："></a>Heat概念：</h6><p>​	Stack(栈)在Heat领域, Stack是多个由Heat创建的对象或者资源的集合。它包含实例(虚拟机),网络,子网,路由,端口,路由端口,安全组( Security Group)安全组规则,自动伸缩等。</p>
+<p>​	Template(模板)Heat使用 template的概念来定义一个 Stack.如果你想要一个由私有网连接的2个实例,那么你的 template需要包括2个实例,一个网络,一个子网和2个网络端口的定义。既然 template是Hea中的核心</p>
+<p>​	Parameters(参数)Heat template有三个部分,而其中的一个就是要定义 template的参数。参数包含一些基本信息,比如具体的镜像ID,或者特定网络ID</p>
+<p>​	Resources(资源)Resource就是由Heat创建或者修改的具体的资源。它是 Heat template的第二个重要部分。</p>
+<p>​	Output(输出)Heat template的第三个和最后一个重要部分就是 Output(输出)。它是通过Open Stack Dashboard或者 Heat stack-list&#x2F; stack-show命令来显示给用户。</p>
+<p>​	HOT<br>​		Heat Orchestration Template的缩写,是 Heat template使用的两种格式的种。HOT并不与 AWS Cloud Formation template格式兼容,只能被 Open Stack使用。HOT格式的 template,通常但不是必须使用YAML。</p>
+<p>​	CFN</p>
+<p>​		AWS Cloud Formation的缩写,Heat支持的第二种格式。CFN格式的template通常使用JsON( Javascript Object Notation是一种轻量级的数据交换格式) 。</p>
+<h6 id="Heat的组件"><a href="#Heat的组件" class="headerlink" title="Heat的组件"></a>Heat的组件</h6><p>​	Heat-api组件实现 Open Stack天然支持的 REST API。该组件通过把API请求经由AMQP传送给 Heat engine来处理API请求</p>
+<p>​	Heat-api-cfn组件提供兼容 AWS Cloud Formation的APl,同时也会把AP请求通过AMQP转发给 heat-engine</p>
+<p>​	Heat-engine组件提供Heat最主要的协作功能</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# heat service-list 				# 查看heat的服务列表信息、</span><br><span class="line">[root@controller ~]# heat resource-type-list    	#（显示所有资源类型）</span><br><span class="line">[root@controller ~]# heat template-version-list		# 查询heat模板的版本信息</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="libvirt"><a href="#libvirt" class="headerlink" title="libvirt"></a>libvirt</h5><p>在物理云平台查询云主机在KVM中的真实实例名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# virsh list                       # 查询</span><br><span class="line"> Id    Name                           State</span><br><span class="line">----------------------------------------------------</span><br><span class="line"> ......</span><br><span class="line">[root@controller ~]# virsh shutdown 54			      # 用domain-id 关闭主机</span><br><span class="line">Domain 54 is being shutdown</span><br><span class="line">virsh # reboot 55					# 重启云主机</span><br><span class="line">Domain 55 is being rebooted</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>vmware装的OpenStack平台虚拟机启动了进不去得去改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/nova/nova.conf  # 用 &quot;/[libvirt]&quot;去找</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/f228459162c64f0991ebe11040201526.png" alt="libvirt"></p>
+<p>改<code>virt_type</code>的参数，改完重启OpenStack的所有服务再去OpenStack平台上启动云主机就可以进去了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# systemctl restart openstack*</span><br></pre></td></tr></table></figure>
+
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/10/25/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2021-11-12 11:12:50
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                        #笔记
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/11/12/Kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#KeyStone%E4%B8%BA%E6%95%B4%E4%B8%AAOpenStack%E6%8F%90%E4%BE%9B%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1"><span class="toc-text">KeyStone为整个OpenStack提供认证服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Glance%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1"><span class="toc-text">Glance镜像服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Nova"><span class="toc-text">Nova</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Neutron-%E7%BD%91%E7%BB%9C"><span class="toc-text">Neutron 网络</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Cinder%E5%9D%97%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1"><span class="toc-text">Cinder块存储服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Swift%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1"><span class="toc-text">Swift对象存储服务</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Swift%E5%90%84%E7%BB%84%E4%BB%B6%EF%BC%9A"><span class="toc-text">Swift各组件：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Heat%E7%BC%96%E6%8E%92%E6%9C%8D%E5%8A%A1"><span class="toc-text">Heat编排服务</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Heat%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-text">Heat概念：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Heat%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="toc-text">Heat的组件</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#libvirt"><span class="toc-text">libvirt</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/rskil">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a href="/">Copyright © 2024 rskil</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+      
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + OpenStack%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0 + '&url=' + http%3A%2F%2Fexample.com%2F2021%2F11%2F12%2FOpenStack%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2021/11/12/OpenStack%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
