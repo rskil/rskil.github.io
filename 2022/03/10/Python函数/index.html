@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Python函数 
+      
+      
+      |
+    
+     rskil_blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">rskil</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Python函数</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2022-03-10 19:55:50
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                    #笔记
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>函数的定义和调用，函数参数的传递，函数的返回值，变量作用域，特殊形式的函数</p>
+<span id="more"></span>
+
+<h3 id="函数概述"><a href="#函数概述" class="headerlink" title="函数概述"></a>函数概述</h3><p>​	函数是组织好的实现单一功能或相关联功能的代码段。使用函数来编程可使程序模块化，既减少了冗余代码，又让程序结构更为清晰，既能提高开发人员的编程效率，又方便后期的维护和扩展。</p>
+<h3 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h3><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">函数体</span> ([参数列表]):</span><br><span class="line">    [<span class="string">&quot;&quot;&quot;&quot;文档字符串&quot;&quot;&quot;</span><span class="string">&quot;]</span></span><br><span class="line"><span class="string">    函数体</span></span><br><span class="line"><span class="string">    [return语句] #返回语句</span></span><br><span class="line"><span class="string">     </span></span><br><span class="line"><span class="string">格式相关说明</span></span><br><span class="line"><span class="string"># def 关键字 ： 函数开始的标志</span></span><br><span class="line"><span class="string"># 函数名： 函数的唯一标识，遵循标识符的命名规则</span></span><br><span class="line"><span class="string"># 参数列表： 负责接收和传入函数中的数据，可以包含一个或多个参数，也可以为空</span></span><br><span class="line"><span class="string"># 冒号： 函数体开始的标志</span></span><br><span class="line"><span class="string"># 文档字符串： 由一对三引号包裹的用于说明函数功能的字符串，可以省略</span></span><br><span class="line"><span class="string"># 函数体：实现函数功能的具体代码</span></span><br><span class="line"><span class="string"># return语句 ： 返回函数的处理结果给调用方，是函数的结束标志。若函数没有返回值可以省略return语句。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="例如，定义一个计算两数之和的函数"><a href="#例如，定义一个计算两数之和的函数" class="headerlink" title="例如，定义一个计算两数之和的函数"></a>例如，定义一个计算两数之和的函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>():</span><br><span class="line">	result = <span class="number">11</span> + <span class="number">22</span></span><br><span class="line">	<span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<p>定义的add()是一个无参函数，只能计算11和22的和，具有局限性</p>
+<p>改一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">a,b</span>):</span><br><span class="line">    result = a + b</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<p>这样一来就成有参函数了，调用的时候得带上参数</p>
+<p>可以计算任意两数的值了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="number">11</span>,<span class="number">22</span>) 	<span class="comment"># test(a,b) a和b的值可以任意填</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h3><ol>
+<li>函数自定义要在函数调用前</li>
+<li>函数内可以嵌套函数</li>
+<li>也可以在函数内定义函数 将其调用</li>
+<li>函数内部的函数不能直接在外部调用</li>
+</ol>
+<h4 id="函数的嵌套定义"><a href="#函数的嵌套定义" class="headerlink" title="函数的嵌套定义"></a>函数的嵌套定义</h4><p>​	函数在定义时可以在其内部嵌套定义另外一个函数，此时嵌套的函数称为外层函数，被嵌套的函数称为内层函数。</p>
+<p>​	例: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,b</span>):</span><br><span class="line">    test = a + b</span><br><span class="line">    <span class="built_in">print</span>(test)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ddd</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我是内层函数&#x27;</span>)</span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>)  <span class="comment"># 输出为 3</span></span><br><span class="line">ddd()	<span class="comment"># 在外部调用内层函数是会报错的</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>内层函数没被调用的话时不会运行的，在外部直接调用内层的函数也是调用不了的</p>
+</blockquote>
+<p>​	例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,b</span>):</span><br><span class="line">    test = a + b</span><br><span class="line">    <span class="built_in">print</span>(test)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ddd</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我是内层函数&#x27;</span>)</span><br><span class="line">    ddd()	<span class="comment"># 调用内层</span></span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出为</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 我是内层函数</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只有在定义了后在其内部调用才能被执行</p>
+</blockquote>
+<h3 id="函数参数的传递"><a href="#函数参数的传递" class="headerlink" title="函数参数的传递"></a>函数参数的传递</h3><p>​	将定义函数时设置的参数称为形式参数(形参)</p>
+<h4 id="位置参数的传递"><a href="#位置参数的传递" class="headerlink" title="位置参数的传递"></a>位置参数的传递</h4><p>​	函数在被调用时会将按照相应的位置依次传递给形参，即第一个实参，传给第一个形参，第二个实参传给第二个形参，以此类推</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">bj,rens,pjf</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;bj&#125;</span>班,<span class="subst">&#123;rens&#125;</span>人,<span class="subst">&#123;pjf&#125;</span>分&#x27;</span>)</span><br><span class="line"></span><br><span class="line">test(<span class="number">2020</span>,<span class="number">49</span>,<span class="number">90</span>)     <span class="comment"># 输出为  2020班,49人,90分</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="关键字参数的传递"><a href="#关键字参数的传递" class="headerlink" title="关键字参数的传递"></a>关键字参数的传递</h4><p>​	若函数的参数数量比较多，开发者难以记住每个参数的作时，按照位置传参就不是很方便</p>
+<p>这是关键字传参就很人性了 ，关键字传递是通过 ”形参 &#x3D; 实参“ 的格式将实参与形参相关联，将实参按照对应的关键字传递给形参。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">bj,rens,pjf</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;bj&#125;</span>班,<span class="subst">&#123;rens&#125;</span>人,<span class="subst">&#123;pjf&#125;</span>分&#x27;</span>)</span><br><span class="line"></span><br><span class="line">test(rens=<span class="number">49</span>,pjf=<span class="number">90</span>,bj=<span class="number">2020</span>)	<span class="comment"># 输出为  2020班,49人,90分</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="默认参数传递"><a href="#默认参数传递" class="headerlink" title="默认参数传递"></a>默认参数传递</h4><p>​	在函数定义的时候可以指定形参的默认值，如果调用的时候没有给这个形参值的话就会直接使用形参的默认值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span> (ip,port=<span class="number">8080</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;设备<span class="subst">&#123;ip&#125;</span>,端口<span class="subst">&#123;port&#125;</span>&#x27;</span>)</span><br><span class="line">test(ip=<span class="string">&quot;127.0.0.1&quot;</span>)			<span class="comment"># 输出为 设备127.0.0.1,端口8080</span></span><br><span class="line">test(ip=<span class="string">&quot;127.0.0.1&quot;</span>,port=<span class="string">&quot;80&quot;</span>)  <span class="comment"># 输出为 设备127.0.0.1,端口80</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="参数的打包与解包"><a href="#参数的打包与解包" class="headerlink" title="参数的打包与解包"></a>参数的打包与解包</h3><p>​	函数支持将实参以打包和解包的形式传递给形参。</p>
+<h4 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h4><p>​	如果函数在定义时无法确定需要接收多少个数据，可以在定义函数时为形参添加”<em>“和”**”，如果在形参前加上一个 * ，那么它就可以接收以元组形式打包的多个值，如果是 两个</em> ，那么它可以接收以字典形式打包的多个值‘</p>
+<h5 id="“”-元组-形式-args"><a href="#“”-元组-形式-args" class="headerlink" title="“” 元组*形式 args"></a>“<em>” 元组*<em>形式</em></em> args</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">*args</span>):</span><br><span class="line">    <span class="built_in">print</span>(args)</span><br><span class="line">test(<span class="string">&#x27;vm&#x27;</span>,<span class="number">19</span>,<span class="string">&#x27;男&#x27;</span>)  <span class="comment"># 输出为  (&#x27;vm&#x27;, 19, &#x27;男&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="“-”-字典形式-kwargs"><a href="#“-”-字典形式-kwargs" class="headerlink" title="“**”  字典形式 kwargs"></a>“**”  字典形式 kwargs</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">**kwargs</span>):</span><br><span class="line">    <span class="built_in">print</span>(kwargs)</span><br><span class="line">test(a=<span class="number">11</span>,b=<span class="number">22</span>,c=<span class="number">33</span>)  <span class="comment"># 输出为  &#123;&#x27;a&#x27;: 11, &#x27;b&#x27;: 22, &#x27;c&#x27;: 33&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>​	虽然函数中添加“*”或“**” 的形参可以是符合命名规范的任意名称，但一般建议使用 “ * args”和 “ * *kwargs”,若它没有接收到任何数据，参数” * args”和 “ * *kwargs”为空 ， 即它们为空元组或空字典。</p>
+</blockquote>
+<h4 id="解包"><a href="#解包" class="headerlink" title="解包"></a>解包</h4><p>​	如果函数在调用的时接收的实参是元组类型的数据，那么可以使用”*”将元组拆成多个值，并将每个值按照位置参数传递的方式赋值给形参，如果函数在调用时接收的实参是字典类型的数据，可以使用”**”将字典拆分成多个键值对，并将每个值按照关键字参数传递的方式赋值给与键名对应的形参。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">unpack</span>(<span class="params">a,b,c,d,e</span>):</span><br><span class="line">    <span class="built_in">print</span>(a,b,c,d,e)</span><br><span class="line"></span><br><span class="line">nums = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">unpack(*nums)    <span class="comment"># 输出为 1 2 3 4 5</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="混合传递"><a href="#混合传递" class="headerlink" title="混合传递"></a>混合传递</h3><p>​	函数的参数传递的方式在定义函数或调用函数时可以混合使用，但是需要遵循一定的优先级规则，这些方式按优先级从高到低依次为按位置参数传递</p>
+<h3 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h3><p> return</p>
+<p>如果定义的函数只返回了一个值，就是一个值</p>
+<p>如果返回多个值，那这些值就会被保存到元组中</p>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><h4 id="局部变量和全局变量"><a href="#局部变量和全局变量" class="headerlink" title="局部变量和全局变量"></a>局部变量和全局变量</h4><p>​	根据作用域的不同，变量可分为局部变量，全局变量</p>
+<h5 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h5><p>​		局部变量是指在函数内部定义的变量，只能在函数内部被使用，函数执行结束之后局部变量会被释放，此时无法访问。</p>
+<p>​		不同函数内部可以包含同名的局部变量，这些局部变量的关系类似于“不同目录下的同名文件”的关系，它们相互独立，互不影响。</p>
+<h5 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h5><p>​		局部变量可以在整个程序范围内起作用，它不会受函数范围的影响。</p>
+<h4 id="global和nonlocal关键字"><a href="#global和nonlocal关键字" class="headerlink" title="global和nonlocal关键字"></a>global和nonlocal关键字</h4><h5 id="global关键字"><a href="#global关键字" class="headerlink" title="global关键字"></a>global关键字</h5><p>​		使用global关键字可以将局部变量声明为全局变量</p>
+<h5 id="nonlocal关键字"><a href="#nonlocal关键字" class="headerlink" title="nonlocal关键字"></a>nonlocal关键字</h5><p>​		nonlocal关键字可以在局部作用域中修改嵌套作用域中声明的变量</p>
+<h3 id="特殊形式的函数"><a href="#特殊形式的函数" class="headerlink" title="特殊形式的函数"></a>特殊形式的函数</h3><h4 id="递归函数"><a href="#递归函数" class="headerlink" title="递归函数"></a>递归函数</h4><p>​	函数在定义时可以直接或间接的调用其他函数，若函数内部调用了自身，则这个函数被称为递归函数，递归函数通常用于解决结构相似的问题。它采用递归的方式，将一个复杂的大型问题转换为与原问题结构相似的规模较小的若干子问题，之后对最小化的子问题求解，从而得到原问题的解。</p>
+<p>​	递归函数在定义时需要满足2个基本条件： 一个是递归公式 另一个是边界条件，其中，递归公式是求解原问题或相似问题的结构。边界条件是最小化的问题， 也是递归终止的条件。</p>
+<p>​	递归函数的执行可以分为以下两个阶段</p>
+<pre><code> 1. 递推 ： 递归本次的执行都是基于上一次的运算结果。
+ 2. 回溯：遇到终止条件是，则沿着递推往回一级一级的把值返回来。
+</code></pre>
+<p>语法格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">函数名</span>(<span class="params">[参数列表]</span>):</span><br><span class="line">	<span class="keyword">if</span> 边界条件:</span><br><span class="line">		<span class="keyword">return</span> 结果</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> 递归公式</span><br></pre></td></tr></table></figure>
+
+<p>递归最经典的应用便是阶乘。在数学中，求正数n！(n的阶乘)问题根据n的取值可以分为以下两种情况</p>
+<ul>
+<li>当n &#x3D; 1 时，所得的结果为 1</li>
+<li>当n &gt; 1 时，所得的结果为 n x (n-1)!</li>
+</ul>
+<p>那么利用递归求解阶乘是，n&#x3D;1 是边界条件，n x (n-1)! 是递归公式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span>  num*func(num - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">num = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;输入一个整数&#x27;</span>))</span><br><span class="line">result = func(num)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span> ! = %d&#x27;</span>%result)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行 输入 5   输出为 5 ! = 120</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h4><p>​		匿名函数是一类无须定义的标识符的函数，它与普通函数一样可以在程序的任何位置使用。Python中使用lambda关键字来定义匿名函数。</p>
+<p>语法格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lambda</span> &lt;形式参数列表&gt;:&lt;表达式&gt;	<span class="comment"># 格式</span></span><br></pre></td></tr></table></figure>
+
+<p>匿名函数和普通函数的区别：</p>
+<ol>
+<li>普通函数在定义的时候有名称，而匿名函数没有名称</li>
+<li>普通函数的函数体中包含多条语句，而匿名函数的函数体只能是一个表达式。</li>
+<li>普通函数可以实现比较复杂的功能，而匿名函数可以实现的功能比较简单</li>
+<li>普通函数能被其他程序使用，而匿名函数不能被其他程序使用。</li>
+</ol>
+<p>​		定义好的匿名函数不能直接使用，最好使用一个变量保存它，以便后期可以随时使用这给函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义匿名函数，并将它返回的函数对象赋值给变量 test</span></span><br><span class="line">test = <span class="keyword">lambda</span> a,b : a+b</span><br><span class="line"><span class="built_in">print</span>(test(<span class="number">10</span>,<span class="number">30</span>))			 <span class="comment"># 输出为 40</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/03/08/Python%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2022-03-10 19:55:50
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">
+                        #笔记
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/05/12/Docker%E5%AE%B9%E5%99%A8%E5%86%85%E4%BD%93%E9%AA%8C%20WebSSH/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A6%82%E8%BF%B0"><span class="toc-text">函数概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">定义函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%A6%82%EF%BC%8C%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E8%AE%A1%E7%AE%97%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">例如，定义一个计算两数之和的函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">调用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%B5%8C%E5%A5%97%E5%AE%9A%E4%B9%89"><span class="toc-text">函数的嵌套定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92"><span class="toc-text">函数参数的传递</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92"><span class="toc-text">位置参数的传递</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92"><span class="toc-text">关键字参数的传递</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-text">默认参数传递</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E6%89%93%E5%8C%85%E4%B8%8E%E8%A7%A3%E5%8C%85"><span class="toc-text">参数的打包与解包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85"><span class="toc-text">打包</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9C%E2%80%9D-%E5%85%83%E7%BB%84-%E5%BD%A2%E5%BC%8F-args"><span class="toc-text">“” 元组*形式 args</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9C-%E2%80%9D-%E5%AD%97%E5%85%B8%E5%BD%A2%E5%BC%8F-kwargs"><span class="toc-text">“**”  字典形式 kwargs</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%8C%85"><span class="toc-text">解包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%BC%A0%E9%80%92"><span class="toc-text">混合传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">函数的返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">变量作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">局部变量和全局变量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">全局变量</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#global%E5%92%8Cnonlocal%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">global和nonlocal关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#global%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">global关键字</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nonlocal%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">nonlocal关键字</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">特殊形式的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0"><span class="toc-text">递归函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-text">匿名函数</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/rskil">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a href="/">Copyright © 2024 rskil</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+      
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Python%E5%87%BD%E6%95%B0 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F03%2F10%2FPython%25E5%2587%25BD%25E6%2595%25B0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/03/10/Python%E5%87%BD%E6%95%B0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
